@@ -1,0 +1,108 @@
+Análise:
+Para cada alocação em P, não foi liberada a memória.
+
+Correção:
+Depois de cada malloc, dar um free(p)
+
+Script:
+Análise:
+Script started on 2023-04-09 18:23:27-03:00 [TERM="xterm-256color" TTY="/dev/pts/9" COLUMNS="172" LINES="11"]
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gcc c13.c -g -o c13.exe
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c13.exe
+[35;1m[35;1mGNU gdb [m[35;1m(Ubuntu 9.1-0ubuntu1) [m[35;1m9.1[m[35;1m
+[m[mCopyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+[m--Type <RET> for more, q to quit, c to continue without paging--r[Kc
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from [32m./c13.exe[m...
+(gdb) run
+Starting program: /home/tontomona/ED/AP3/c13.exe 
+[Inferior 1 (process 11514) exited normally]
+(gdb) quit
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c13.execc c13.c -g -o c13.exeexit[Kvalgrind --leak-check=full ./c12correto.exe[K[K[K[K[K[K[K[K[K[K[K[K3.exe
+==11518== Memcheck, a memory error detector
+==11518== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==11518== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==11518== Command: ./c13.exe
+==11518== 
+==11518== 
+==11518== HEAP SUMMARY:
+==11518==     in use at exit: 35 bytes in 2 blocks
+==11518==   total heap usage: 3 allocs, 1 frees, 47 bytes allocated
+==11518== 
+==11518== 16 bytes in 1 blocks are definitely lost in loss record 1 of 2
+==11518==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11518==    by 0x1091A6: main (c13.c:11)
+==11518== 
+==11518== 19 bytes in 1 blocks are definitely lost in loss record 2 of 2
+==11518==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11518==    by 0x10917E: main (c13.c:8)
+==11518== 
+==11518== LEAK SUMMARY:
+==11518==    definitely lost: 35 bytes in 2 blocks
+==11518==    indirectly lost: 0 bytes in 0 blocks
+==11518==      possibly lost: 0 bytes in 0 blocks
+==11518==    still reachable: 0 bytes in 0 blocks
+==11518==         suppressed: 0 bytes in 0 blocks
+==11518== 
+==11518== For lists of detected and suppressed errors, rerun with: -s
+==11518== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ exit
+exit
+
+Script done on 2023-04-09 18:24:05-03:00 [COMMAND_EXIT_CODE="0"]
+
+Correção:
+Script started on 2023-04-09 18:26:15-03:00 [TERM="xterm-256color" TTY="/dev/pts/9" COLUMNS="172" LINES="11"]
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ exitvalgrind --leak-check=full ./c13.exe[23Pgdb[C[C[C[C[C[C[C[C[C[C[23@valgrind --leak-check=full[C[C[C[C[C[C[C[C[C[C[23Pgdb[C[C[C[C[C[C[C[C[C[Ccc c13.c -g -o c13.exe[10Pdb ./c13.exe[K[K[K[Kcorrecot[K[K[Kto.exe
+[35;1m[35;1mGNU gdb [m[35;1m(Ubuntu 9.1-0ubuntu1) [m[35;1m9.1[m[35;1m
+[m[mCopyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+[m--Type <RET> for more, q to quit, c to continue without paging--c
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from [32m./c13correto.exe[m...
+(gdb) run
+Starting program: /home/tontomona/ED/AP3/c13correto.exe 
+[Inferior 1 (process 11806) exited normally]
+(gdb) quit
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c13correto.exeexit[Kvalgrind --leak-check=full ./c13.exe[K[K[K[Kcorreto.exe
+==11858== Memcheck, a memory error detector
+==11858== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==11858== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==11858== Command: ./c13correto.exe
+==11858== 
+==11858== 
+==11858== HEAP SUMMARY:
+==11858==     in use at exit: 0 bytes in 0 blocks
+==11858==   total heap usage: 3 allocs, 3 frees, 47 bytes allocated
+==11858== 
+==11858== All heap blocks were freed -- no leaks are possible
+==11858== 
+==11858== For lists of detected and suppressed errors, rerun with: -s
+==11858== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ exit
+exit
+
+Script done on 2023-04-09 18:26:47-03:00 [COMMAND_EXIT_CODE="0"]

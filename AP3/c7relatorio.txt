@@ -1,0 +1,100 @@
+Análise:
+O program tenta alterar o valor de *(alphabet + 26) sendo que so foi alocado até *(alphabet + 25)
+
+Correção:
+Alcoar com o calloc até 27 para a variável alphabet.
+
+Script:
+Análise:
+Script started on 2023-04-09 16:27:28-03:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="172" LINES="11"]
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c7.exe
+[35;1m[35;1mGNU gdb [m[35;1m(Ubuntu 9.1-0ubuntu1) [m[35;1m9.1[m[35;1m
+[m[mCopyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+[m--Type <RET> for more, q to quit, c to continue without paging--c
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from [32m./c7.exe[m...
+(gdb) run
+Starting program: /home/tontomona/ED/AP3/c7.exe 
+[Inferior 1 (process 5640) exited normally]
+(gdb) quit
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c7.exe[8Pexitvalgrind --leak-check=full ./c7.exe
+==5673== Memcheck, a memory error detector
+==5673== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==5673== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==5673== Command: ./c7.exe
+==5673== 
+==5673== Invalid write of size 1
+==5673==    at 0x1091BC: main (c7.c:10)
+==5673==  Address 0x4a4805a is 0 bytes after a block of size 26 alloc'd
+==5673==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5673==    by 0x109183: main (c7.c:5)
+==5673== 
+==5673== 
+==5673== HEAP SUMMARY:
+==5673==     in use at exit: 0 bytes in 0 blocks
+==5673==   total heap usage: 1 allocs, 1 frees, 26 bytes allocated
+==5673== 
+==5673== All heap blocks were freed -- no leaks are possible
+==5673== 
+==5673== For lists of detected and suppressed errors, rerun with: -s
+==5673== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ exit
+exit
+
+Script done on 2023-04-09 16:27:49-03:00 [COMMAND_EXIT_CODE="0"]
+
+Correção:
+Script started on 2023-04-09 16:32:36-03:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="172" LINES="11"]
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c7correto.exe
+[35;1m[35;1mGNU gdb [m[35;1m(Ubuntu 9.1-0ubuntu1) [m[35;1m9.1[m[35;1m
+[m[mCopyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+[m--Type <RET> for more, q to quit, c to continue without paging--c
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from [32m./c7correto.exe[m...
+(gdb) run
+Starting program: /home/tontomona/ED/AP3/c7correto.exe 
+[Inferior 1 (process 5819) exited normally]
+(gdb) quit
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c7correto.exeexit[Kvalgrind --leak-check=full ./c7.exe[K[K[K[Kcorreto.exe
+==5852== Memcheck, a memory error detector
+==5852== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==5852== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==5852== Command: ./c7correto.exe
+==5852== 
+==5852== 
+==5852== HEAP SUMMARY:
+==5852==     in use at exit: 0 bytes in 0 blocks
+==5852==   total heap usage: 1 allocs, 1 frees, 26 bytes allocated
+==5852== 
+==5852== All heap blocks were freed -- no leaks are possible
+==5852== 
+==5852== For lists of detected and suppressed errors, rerun with: -s
+==5852== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ exit
+exit
+
+Script done on 2023-04-09 16:32:57-03:00 [COMMAND_EXIT_CODE="0"]

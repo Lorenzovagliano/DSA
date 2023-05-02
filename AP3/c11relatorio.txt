@@ -1,0 +1,147 @@
+Análise:
+O programa não alocou memória suficiente à variável msg, tentou acessar ela estaticamente e não liverou a memória.
+
+Correção:
+Dar malloc(10) na variável msg, acessar seus elementos usando notação de ponteiro *(msg + 0) e dar free(msg)
+
+Script:
+Análise:
+Script started on 2023-04-09 17:54:19-03:00 [TERM="xterm-256color" TTY="/dev/pts/9" COLUMNS="172" LINES="11"]
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ exitvalgrind --leak-check=full ./c11correto.exe
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Pgcc c11correto.c -g -o c11correto.exevalgrind --leak-check=full ./c11correto.exe
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Pgcc c11correto.c -g -o c11correto.exevalgrind --leak-check=full ./c11correto.exe
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kgdb ./c11.exe
+[35;1m[35;1mGNU gdb [m[35;1m(Ubuntu 9.1-0ubuntu1) [m[35;1m9.1[m[35;1m
+[m[mCopyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+[m--Type <RET> for more, q to quit, c to continue without paging--c
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from [32m./c11.exe[m...
+(gdb) run
+Starting program: /home/tontomona/ED/AP3/c11.exe 
+9857, Rolberton
+[Inferior 1 (process 9857) exited normally]
+(gdb) quit
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c11.exeexit[Kvalgrind --leak-check=full ./c11correto.exe
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6Pgcc c11correto.c -g -o c11correto.exevalgrind --leak-check=full ./c11correto.exe[K[K[K[K[K[K[K[K[K[K[K.exe
+==9885== Memcheck, a memory error detector
+==9885== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==9885== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==9885== Command: ./c11.exe
+==9885== 
+==9885== Invalid write of size 2
+==9885==    at 0x1091B4: main (c11.c:9)
+==9885==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==9885==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9885==    by 0x10919E: main (c11.c:8)
+==9885== 
+==9885== Invalid read of size 1
+==9885==    at 0x483EF54: strlen (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9885==    by 0x48CEE94: __vfprintf_internal (vfprintf-internal.c:1688)
+==9885==    by 0x48B7EBE: printf (printf.c:33)
+==9885==    by 0x1091DF: main (c11.c:11)
+==9885==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==9885==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9885==    by 0x10919E: main (c11.c:8)
+==9885== 
+==9885== Invalid read of size 1
+==9885==    at 0x48E588C: _IO_new_file_xsputn (fileops.c:1219)
+==9885==    by 0x48E588C: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==9885==    by 0x48CD27B: __vfprintf_internal (vfprintf-internal.c:1688)
+==9885==    by 0x48B7EBE: printf (printf.c:33)
+==9885==    by 0x1091DF: main (c11.c:11)
+==9885==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==9885==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9885==    by 0x10919E: main (c11.c:8)
+==9885== 
+==9885== Invalid read of size 1
+==9885==    at 0x48436A0: mempcpy (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9885==    by 0x48E57B1: _IO_new_file_xsputn (fileops.c:1236)
+==9885==    by 0x48E57B1: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==9885==    by 0x48CD27B: __vfprintf_internal (vfprintf-internal.c:1688)
+==9885==    by 0x48B7EBE: printf (printf.c:33)
+==9885==    by 0x1091DF: main (c11.c:11)
+==9885==  Address 0x4a48048 is 0 bytes after a block of size 8 alloc'd
+==9885==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9885==    by 0x10919E: main (c11.c:8)
+==9885== 
+9885, Rolberton
+==9885== 
+==9885== HEAP SUMMARY:
+==9885==     in use at exit: 8 bytes in 1 blocks
+==9885==   total heap usage: 2 allocs, 1 frees, 1,032 bytes allocated
+==9885== 
+==9885== 8 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==9885==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9885==    by 0x10919E: main (c11.c:8)
+==9885== 
+==9885== LEAK SUMMARY:
+==9885==    definitely lost: 8 bytes in 1 blocks
+==9885==    indirectly lost: 0 bytes in 0 blocks
+==9885==      possibly lost: 0 bytes in 0 blocks
+==9885==    still reachable: 0 bytes in 0 blocks
+==9885==         suppressed: 0 bytes in 0 blocks
+==9885== 
+==9885== For lists of detected and suppressed errors, rerun with: -s
+==9885== ERROR SUMMARY: 7 errors from 5 contexts (suppressed: 0 from 0)
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ exit
+exit
+
+Script done on 2023-04-09 17:54:47-03:00 [COMMAND_EXIT_CODE="0"]
+
+Correção:
+Script started on 2023-04-09 17:54:55-03:00 [TERM="xterm-256color" TTY="/dev/pts/9" COLUMNS="172" LINES="11"]
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c11correto.exe
+[35;1m[35;1mGNU gdb [m[35;1m(Ubuntu 9.1-0ubuntu1) [m[35;1m9.1[m[35;1m
+[m[mCopyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+[m--Type <RET> for more, q to quit, c to continue without paging--c
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from [32m./c11correto.exe[m...
+(gdb) run
+Starting program: /home/tontomona/ED/AP3/c11correto.exe 
+10181, Rolberton
+[Inferior 1 (process 10181) exited normally]
+(gdb) quit
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ gdb ./c11correto.exeexit[Kvalgrind --leak-check=full ./c11.exe[K[K[K[Kcorreto.exe
+==10284== Memcheck, a memory error detector
+==10284== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==10284== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==10284== Command: ./c11correto.exe
+==10284== 
+10284, Rolberton
+==10284== 
+==10284== HEAP SUMMARY:
+==10284==     in use at exit: 0 bytes in 0 blocks
+==10284==   total heap usage: 2 allocs, 2 frees, 1,034 bytes allocated
+==10284== 
+==10284== All heap blocks were freed -- no leaks are possible
+==10284== 
+==10284== For lists of detected and suppressed errors, rerun with: -s
+==10284== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+]0;tontomona@LorenzoVagliano: ~/ED/AP3[01;32mtontomona@LorenzoVagliano[00m:[01;34m~/ED/AP3[00m$ exit
+exit
+
+Script done on 2023-04-09 17:57:26-03:00 [COMMAND_EXIT_CODE="0"]
