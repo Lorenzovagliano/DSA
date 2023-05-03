@@ -1,18 +1,21 @@
 #ifndef PILHA_H
 #define PILHA_H
 
-#include "FilaCircular.hpp"
+#include "TipoNo.hpp"
 
 class Pilha{
     private:
-        FilaCircular fila1;
-        FilaCircular fila2;
+        TipoNo* topo;
+        int tamanho;
 
     public:
-        bool pilhaVazia();
-        void empilha(int valor);
-        void desempilha();
-        void printPilha();
+        Pilha();
+        ~Pilha();
+
+        bool Vazia();
+        void Empilha(char item);
+        char Desempilha();
+        void Limpa();
 };
 
 

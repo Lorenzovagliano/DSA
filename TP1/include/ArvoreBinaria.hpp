@@ -2,6 +2,7 @@
 #define ARVOREBINARIA_H
 
 #include "TipoNo.hpp"
+#include "Pilha.hpp"
 
 class ArvoreBinaria{
     private:
