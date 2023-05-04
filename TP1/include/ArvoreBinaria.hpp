@@ -3,10 +3,12 @@
 
 #include "TipoNo.hpp"
 #include "Pilha.hpp"
+#include <string>
 
 class ArvoreBinaria{
     private:
         TipoNo *raiz;
+        Pilha pilha;
         
         void InsereRecursivo(TipoNo* &p, char item);
         void ApagaRecursivo(TipoNo* p);
@@ -18,6 +20,8 @@ class ArvoreBinaria{
     public:
         ArvoreBinaria();
         ~ArvoreBinaria();
+
+        TipoNo* construir(std::string posfixa);
         void Insere(char item);
         void Caminha(int tipo);
         void Limpa();

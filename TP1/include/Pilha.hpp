@@ -4,6 +4,8 @@
 #include "TipoNo.hpp"
 
 class Pilha{
+    friend class ArvoreBinaria;
+    
     private:
         TipoNo* topo;
         int tamanho;
