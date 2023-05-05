@@ -2,11 +2,10 @@
 #define NODE_H
 
 class Node{
-    private:
+    public:
         char data;
         Node *left, *right;
-    
-    public:
+        
         Node(char data);
         Node(char data, Node *left, Node *right);
 };
