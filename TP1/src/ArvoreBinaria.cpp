@@ -5,7 +5,40 @@ ArvoreBinaria::ArvoreBinaria(){
 }
 
 ArvoreBinaria::~ArvoreBinaria(){
-    Limpa();
+}
+
+void ArvoreBinaria::postorder(TipoNo* raiz){
+    if (raiz == nullptr) {
+        return;
+    }
+ 
+    postorder(raiz->esq);
+    postorder(raiz->dir);
+    std::cout << raiz->item;
+}
+
+bool ArvoreBinaria::isOperator(char c){
+    return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
+}
+
+void ArvoreBinaria::inorder(TipoNo* raiz){
+    if (raiz == nullptr) {
+        return;
+    }
+ 
+    // if the current token is an operator, print open parenthesis
+    if (isOperator(raiz->item)) {
+        std::cout << "(";
+    }
+ 
+    inorder(raiz->esq);
+    std::cout << raiz->item;
+    inorder(raiz->dir);
+ 
+    // if the current token is an operator, print close parenthesis
+    if (isOperator(raiz->item)) {
+        std::cout << ")";
+    }
 }
 
 TipoNo* ArvoreBinaria::construir(std::string posfixa){
@@ -24,31 +57,32 @@ TipoNo* ArvoreBinaria::construir(std::string posfixa){
         if (isOperator(c))
         {
             // Desempilha two nodes `x` and `y` from the stack
-            TipoNo* x = s.topo;
+            TipoNo* x = new TipoNo();
+            x = s.topo;
             s.Desempilha();
  
-            TipoNo* y = s.topo;
+            TipoNo* y = new TipoNo();
+            y = s.topo;
             s.Desempilha();
  
             // construct a new binary tree whose root is the operator and whose
             // left and right children point to `y` and `x`, respectively
-            ArvoreBinaria* arvore = new ArvoreBinaria();
-            arvore->raiz->item = c;
-            arvore->raiz->esq = y;
-            arvore->raiz->dir = x;
-            TipoNo* node = new TipoNo(c, y, x);
+            this->raiz->item = c;
+            this->raiz->esq = y;
+            this->raiz->dir = x;
  
-            // push the current node into the stack
-            s.push(arvore->raiz);
+            // Empilha the current node into the stack
+            s.Empilha(this->raiz);
         }
  
         // if the current token is an operand, create a new binary tree node
-        // whose root is the operand and push it into the stack
+        // whose root is the operand and Empilha it into the stack
         else {
-            s.push(new Node(c));
+            this->raiz->item = c;
+            s.Empilha(this->raiz);
         }
     }
  
     // a pointer to the root of the expression tree remains on the stack
-    return s.top();
+    return s.topo;
 }

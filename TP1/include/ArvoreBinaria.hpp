@@ -4,6 +4,8 @@
 #include "TipoNo.hpp"
 #include "Pilha.hpp"
 #include <string>
+#include <iostream>
+#include <stack>
 
 class ArvoreBinaria{
     private:
@@ -21,7 +23,10 @@ class ArvoreBinaria{
         ArvoreBinaria();
         ~ArvoreBinaria();
 
+        bool isOperator(char c);
         TipoNo* construir(std::string posfixa);
+        void postorder(TipoNo* raiz);
+        void inorder(TipoNo* raiz);
         void Insere(char item);
         void Caminha(int tipo);
         void Limpa();

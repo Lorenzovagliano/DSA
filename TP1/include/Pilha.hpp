@@ -7,16 +7,16 @@ class Pilha{
     friend class ArvoreBinaria;
     
     private:
-        TipoNo* topo;
         int tamanho;
 
     public:
         Pilha();
         ~Pilha();
 
+        TipoNo* topo;
         bool Vazia();
-        void Empilha(char item);
-        char Desempilha();
+        void Empilha(TipoNo* celula);
+        TipoNo* Desempilha();
         void Limpa();
 };
 

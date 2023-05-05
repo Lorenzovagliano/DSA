@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++11 -Wall
+CFLAGS=-std=c++11 -Wall -g
 
 TARGET= ./bin/InfixaPosfixa
 OBJ_DIR = ./obj
@@ -24,7 +24,7 @@ ${OBJ_DIR}/main.o: ${INCLUDE_DIR}/TipoNo.hpp ${INCLUDE_DIR}/Pilha.hpp ${INCLUDE_
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/main.cpp -o ${OBJ_DIR}/main.o
 
 run: all
-	${TARGET} ./PilhaFila
+	${TARGET} ./InfixaPosfixa
 
 clean:
 	rm -f ${OBJ_DIR}/* ${TARGET}
