@@ -1,12 +1,12 @@
-#include "Stack.hpp"
+#include "IntStack.hpp"
 
-Stack::Stack(){
+IntStack::IntStack(){
     this->top = nullptr; 
 }
 
-void Stack::push(Node* data){
+void IntStack::push(int data){
     // Create new node temp and allocate memory in heap
-    StackNode* temp = new StackNode(data);
+    IntStackNode* temp = new IntStackNode(data);
 
     // Check if stack (heap) is full.
     // Then inserting an element would
@@ -22,17 +22,17 @@ void Stack::push(Node* data){
     // Put top pointer reference into temp link
     temp->link = this->top;
 
-    // Make temp as top of Stack
+    // Make temp as top of IntStack
     this->top = temp;
 }
 
-bool Stack::isEmpty(){
+bool IntStack::isEmpty(){
     // If top is nullptr it means that
     // there are no elements are in stack
     return top == nullptr;
 }
 
-Node* Stack::getTop(){
+int IntStack::getTop(){
     // If stack is not empty , return the top element
     if (!isEmpty())
         return top->data;
@@ -40,8 +40,8 @@ Node* Stack::getTop(){
         exit(1);
 }
 
-void Stack::pop(){
-    StackNode* temp;
+void IntStack::pop(){
+    IntStackNode* temp;
 
     // Check for stack underflow
     if (top == nullptr) {
@@ -65,8 +65,8 @@ void Stack::pop(){
     }
 }
 
-void Stack::display(){
-    StackNode* temp;
+void IntStack::display(){
+    IntStackNode* temp;
 
     // Check for stack underflow
     if (top == nullptr) {

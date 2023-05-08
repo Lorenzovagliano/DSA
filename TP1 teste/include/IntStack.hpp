@@ -1,24 +1,24 @@
-#ifndef STACK_H
-#define Stack_H
+#ifndef INTSTACK_H
+#define INTSTACK_H
 
-#include "StackNode.hpp"
+#include "IntStackNode.hpp"
 #include <iostream>
 
-class Stack {
+class IntStack {
     private:
-        StackNode* top;
+        IntStackNode* top;
     
     public:
-        Stack();
+        IntStack();
     
-        void push(Node* data);
+        void push(int data);
     
         // Utility function to check if
         // the stack is empty or not
         bool isEmpty();
     
         // Utility function to return top element in a stack
-        Node* getTop();
+        int getTop();
     
         // Function to remove
         // a key from given queue q

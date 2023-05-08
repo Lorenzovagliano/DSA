@@ -1,6 +1,7 @@
 #include "Node.hpp"
-#include "StackNode.hpp"
-#include "Stack.hpp"
+#include "NodeStack.hpp"
+#include "CharStack.hpp"
+#include "IntStack.hpp"
 #include <string>
 #include <stack>
 
@@ -54,7 +55,7 @@ Node* constructPostfix(std::string postfix){
     }
  
     // create an empty stack to store tree pointers
-    Stack s;
+    NodeStack s;
  
     // traverse the postfix expression
     for(char c: postfix){
@@ -89,10 +90,10 @@ Node* constructPostfix(std::string postfix){
 Node* constructInfix(std::string& s){
  
     // Stack to hold nodes
-    Stack stN;
+    NodeStack stN;
  
     // Stack to hold chars
-    std::stack<char> stC;
+    CharStack stC;
     Node* t; Node* t1; Node* t2;
  
     // Prioritising the operators
@@ -118,23 +119,23 @@ Node* constructInfix(std::string& s){
             // If an operator with lower or
             // same associativity appears
             while (
-                !stC.empty() && stC.top() != '('
-                && ((s[i] != '^' && p[stC.top()] >= p[s[i]])
+                !stC.isEmpty() && stC.getTop() != '('
+                && ((s[i] != '^' && p[stC.getTop()] >= p[s[i]])
                     || (s[i] == '^'
-                        && p[stC.top()] > p[s[i]])))
+                        && p[stC.getTop()] > p[s[i]])))
             {
  
-                // Get and remove the top element
+                // Get and remove the getTop element
                 // from the character stack
-                t = new Node(stC.top());
+                t = new Node(stC.getTop());
                 stC.pop();
  
-                // Get and remove the top element
+                // Get and remove the getTop element
                 // from the node stack
                 t1 = stN.getTop();
                 stN.pop();
  
-                // Get and remove the currently top
+                // Get and remove the currently getTop
                 // element from the node stack
                 t2 = stN.getTop();
                 stN.pop();
@@ -151,9 +152,9 @@ Node* constructInfix(std::string& s){
             stC.push(s[i]);
         }
         else if (s[i] == ')') {
-            while (!stC.empty() && stC.top() != '(')
+            while (!stC.isEmpty() && stC.getTop() != '(')
             {
-                t = new Node(stC.top());
+                t = new Node(stC.getTop());
                 stC.pop();
                 t1 = stN.getTop();
                 stN.pop();
@@ -173,7 +174,7 @@ Node* constructInfix(std::string& s){
 int evaluatePostfix(std::string exp)
 {
     // Create a stack of capacity equal to expression size
-    std::stack<int> st;
+    IntStack st;
  
     // Scan all characters one by one
     for (int i = 0; i < exp.size(); ++i) {
@@ -186,9 +187,9 @@ int evaluatePostfix(std::string exp)
         // If the scanned character is an operator,
         // pop two elements from stack apply the operator
         else {
-            int val1 = st.top();
+            int val1 = st.getTop();
             st.pop();
-            int val2 = st.top();
+            int val2 = st.getTop();
             st.pop();
             switch (exp[i]) {
             case '+':
@@ -206,7 +207,7 @@ int evaluatePostfix(std::string exp)
             }
         }
     }
-    return st.top();
+    return st.getTop();
 }
 
 Node* buildTree(std::string choice, std::string argument){
