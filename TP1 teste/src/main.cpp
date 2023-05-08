@@ -23,7 +23,7 @@ void postorder(Node* root){
  
     postorder(root->left);
     postorder(root->right);
-    std::cout << root->data << ' ';
+    std::cout << root->data;
 }
  
 // Print the infix expression for an expression tree
@@ -34,28 +34,21 @@ void inorder(Node* root){
  
     // if the current token is an operator, print open parenthesis
     if(isOperator(root->data)){
-        std::cout << " ( ";
+        std::cout << "(";
     }
  
     inorder(root->left);
-    std::cout << root->data << ' ';
+    std::cout << root->data;
     inorder(root->right);
  
     // if the current token is an operator, print close parenthesis
     if(isOperator(root->data)){
-        std::cout << " ) ";
+        std::cout << ")";
     }
 }
  
 // Function to construct an expression tree from the given postfix expression
 Node* constructPostfix(std::string postfix){
-    std::string result;
-    for(char c : postfix){
-        if(!isspace(c)){
-            result += c;
-        }
-    }
-    postfix = result;
     // base case
     if(postfix.length() == 0){
         return nullptr;
@@ -178,43 +171,38 @@ Node* constructInfix(std::string& s){
     return t;
 }
 
-float perform_operation(char operation, int operand1, int operand2) {
-    if (operation == '+') {
-        return operand1 + operand2;
-    } else if (operation == '-') {
-        return operand1 - operand2;
-    } else if (operation == '*') {
-        return operand1 * operand2;
-    } else if (operation == '/') {
-        return operand1 / operand2;
-    }
-}
-
-// Function to evaluate a postfix expression with nested expressions
-float evaluatePostfix(std::string postfix_expression) {
-    std::stack<float> operands;
-    for (char c : postfix_expression) {
-        if (c == ' ') {
-            continue;
-        } else if (isOperator(c)) {
-            float operand2 = operands.top();
-            operands.pop();
-            float operand1 = operands.top();
-            operands.pop();
-            float result = perform_operation(c, operand1, operand2);
-            operands.push(result);
-        } else {
-            // The current character is a digit
-            float operand = 0;
-            float i = 0;
-            while (isdigit(c)) {
-                operand = operand * 10 + (c - '0');
-                c = postfix_expression[++i];
+int evaluatePostfix(std::string exp)
+{
+    // Create a stack of capacity equal to expression size
+    IntStack st;
+ 
+    // Scan all characters one by one
+    for (int i = 0; i < exp.size(); ++i) {
+        if(isOperator(exp[i])){
+            int val1 = st.getTop();
+            st.pop();
+            int val2 = st.getTop();
+            st.pop();
+            switch (exp[i]) {
+            case '+':
+                st.push(val2 + val1);
+                break;
+            case '-':
+                st.push(val2 - val1);
+                break;
+            case '*':
+                st.push(val2 * val1);
+                break;
+            case '/':
+                st.push(val2 / val1);
+                break;
             }
-            operands.push(operand);
+        }
+        else{
+            st.push(exp[i] - '0');
         }
     }
-    return operands.top();
+    return st.getTop();
 }
 
 Node* buildTree(std::string choice, std::string argument){
@@ -230,7 +218,7 @@ Node* buildTree(std::string choice, std::string argument){
 }
  
 int main(){
-    std::string postfix = "5.946317  1.106634  6.917778  *  7.021876  5.427541  /  -  8.515828  0.091471  /  *  - ";
+    std::string postfix = "ab+cde+**";
     Node* root = constructPostfix(postfix);
     std::cout << "\nEvaluate postfix: " << evaluatePostfix(postfix) << std::endl;
  
@@ -240,7 +228,7 @@ int main(){
     std::cout << "\nInfix Expression: ";
     inorder(root);
 
-    //std::cout << "\nEvaluate postfix: " << evaluatePostfix(postfix) << std::endl;
+    std::cout << "\nEvaluate postfix: " << evaluatePostfix(postfix) << std::endl;
 
     //std::cout << '\n' << evaluatePostfix(postfix);
 
