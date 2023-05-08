@@ -178,15 +178,7 @@ int evaluatePostfix(std::string exp)
  
     // Scan all characters one by one
     for (int i = 0; i < exp.size(); ++i) {
-         
-        // If the scanned character is an operand
-        // (number here), push it to the stack.
-        if (isdigit(exp[i]))
-            st.push(exp[i] - '0');
- 
-        // If the scanned character is an operator,
-        // pop two elements from stack apply the operator
-        else {
+        if(isOperator(exp[i])){
             int val1 = st.getTop();
             st.pop();
             int val2 = st.getTop();
@@ -205,6 +197,9 @@ int evaluatePostfix(std::string exp)
                 st.push(val2 / val1);
                 break;
             }
+        }
+        else{
+            st.push(exp[i] - '0');
         }
     }
     return st.getTop();
@@ -225,12 +220,15 @@ Node* buildTree(std::string choice, std::string argument){
 int main(){
     std::string postfix = "ab+cde+**";
     Node* root = constructPostfix(postfix);
+    std::cout << "\nEvaluate postfix: " << evaluatePostfix(postfix) << std::endl;
  
     std::cout << "Postfix Expression: ";
     postorder(root);
  
     std::cout << "\nInfix Expression: ";
     inorder(root);
+
+    std::cout << "\nEvaluate postfix: " << evaluatePostfix(postfix) << std::endl;
 
     //std::cout << '\n' << evaluatePostfix(postfix);
 
