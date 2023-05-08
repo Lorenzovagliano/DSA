@@ -227,7 +227,7 @@ Node* buildTree(std::string choice, std::string argument){
 }
  
 int main(){
-    std::string postfix = "1 2 + 1 1 2 + * *";
+    std::string postfix = " 1 2 + 1 1 2 + * *";
     Node* root = constructPostfix(postfix);
     std::cout << "\nEvaluate postfix: " << evaluatePostfix(postfix) << std::endl;
  
