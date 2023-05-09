@@ -75,9 +75,13 @@ void postfixToInfix(TreeNode* root){
         return;
     }
     cout << "( ";
+    cout << "( ";
     postfixToInfix(root->left);
+    cout << ") ";
     cout << root->val << " ";
+    cout << "( ";
     postfixToInfix(root->right);
+    cout << ") ";
     cout << ") ";
 }
 
@@ -165,7 +169,6 @@ void infixToPostfix(TreeNode* root){
 }
 
 int main() {
-    double time;
     string comando;
     string comando2;
     string posfixa;
@@ -177,6 +180,8 @@ int main() {
     cout << "\tPOSFIXA:  " << "Converte um expressão infixa em posfixa.\n";
     cout << "\tINFIXA:  " << "Converte um expressão posfixa em infixa.\n";
     cout << "\tRESOLVE:  " << "Gera o resultado de uma expressão. A função usada para cálcular vai depender do tipo da expressão registrada por LER.\n" << endl;
+    cout << "Expressões devem estar no formato correto, como exemplificadas pelas entradas de teste disponibilizadas\n";
+    cout << "Formatos:  Infixa: ( ( 1 ) + ( 2 ) )    Posfixa:  1 2 +\n";
     cout << "Insira o input. Ele deve ser feito linha por linha, NÃO COPIE INPUTS COM MAIS DE UMA LINHA.\n";
     cout << "Input:\n";
     while(cin >> comando){
@@ -212,11 +217,7 @@ int main() {
         }
         
         else if(comando == "POSFIXA"){
-            auto start = chrono::high_resolution_clock::now();
             TreeNode* inFixRoot = buildInfixExpressionTree(infixa);
-            auto end = chrono::high_resolution_clock::now();
-            double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-            time = time_taken;
             cout << "Expressão infixa convertida para posfixa: ";
             infixToPostfix(inFixRoot);
             cout << '\n';
@@ -236,12 +237,6 @@ int main() {
             break;
         }
     }
-
-    time *= 1e-9;
-
-    cout << "Time taken by program is : " << fixed
-         << time;
-    cout << " sec" << endl;
 
     return 0;
 }
