@@ -180,9 +180,9 @@ int main() {
     cout << "\tPOSFIXA:  " << "Converte um expressão infixa em posfixa.\n";
     cout << "\tINFIXA:  " << "Converte um expressão posfixa em infixa.\n";
     cout << "\tRESOLVE:  " << "Gera o resultado de uma expressão. A função usada para cálcular vai depender do tipo da expressão registrada por LER.\n" << endl;
-    cout << "Expressões devem estar no formato correto, como exemplificadas pelas entradas de teste disponibilizadas\n";
-    cout << "Formatos:  Infixa: ( ( 1 ) + ( 2 ) )    Posfixa:  1 2 +\n";
-    cout << "Insira o input. Ele deve ser feito linha por linha, NÃO COPIE INPUTS COM MAIS DE UMA LINHA.\n";
+    cout << "Expressões devem estar no formato correto, como exemplificadas pelas entradas de teste disponibilizadas.\n";
+    cout << "Formatos: EX:  Infixa: ( ( 1 ) + ( 2 ) )    Posfixa:  1 2 +\n";
+    cout << "Insira o input. Se estiver utilizando o terminal integrado de uma IDE, insira-os linha por linha. No terminal do Linux, entretanto, é possível colar várias linhas ao mesmo tempo.\n";
     cout << "Input:\n";
     while(cin >> comando){
         if(comando == "LER"){
