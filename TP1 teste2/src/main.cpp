@@ -6,8 +6,8 @@
 #include <stack>
 
 // Function to check if a given token is an operator
-bool isOperator(char c){
-    if(c == '+' || c == '-' || c == '*' || c == '/' || c == '^'){
+bool isOperator(std::string c){
+    if(c == "+" || c == "-" || c == "*" || c == "/" || c == "^"){
         return true;
     }
     else{
@@ -49,13 +49,19 @@ void inorder(Node* root){
  
 // Function to construct an expression tree from the given postfix expression
 Node* constructPostfix(std::string postfix){
-    std::string result;
-    for(char c : postfix){
-        if(!isspace(c)){
-            result += c;
+    std::string stringArray[postfix.size()];
+    std::string word = "";
+    for(int i = 0; i < postfix.size(); i++){
+        int count = 0;
+        if(postfix[i] == ' '){
+            stringArray + word;
+            word = "";
+        }
+        else{
+            count++;
+            word = word + x;
         }
     }
-    postfix = result;
 
     // base case
     if(postfix.length() == 0){

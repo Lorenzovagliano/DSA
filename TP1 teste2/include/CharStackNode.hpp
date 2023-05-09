@@ -1,17 +1,17 @@
 #ifndef CHARSTACKNODE_H
 #define CHARSTACKNODE_H
 
-#include "Node.hpp"
+#include <string>
 
 class CharStackNode {
     friend class CharStack;
     
     private:
-        char data;
+        std::string data;
         CharStackNode* link;
     
     public:
-        CharStackNode(char n);
+        CharStackNode(std::string n);
 };
 
 #endif

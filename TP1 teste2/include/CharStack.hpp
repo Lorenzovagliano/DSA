@@ -11,14 +11,14 @@ class CharStack {
     public:
         CharStack();
     
-        void push(char data);
+        void push(std::string data);
     
         // Utility function to check if
         // the stack is empty or not
         bool isEmpty();
     
         // Utility function to return top element in a stack
-        char getTop();
+        std::string getTop();
     
         // Function to remove
         // a key from given queue q

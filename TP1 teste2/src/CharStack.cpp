@@ -4,7 +4,7 @@ CharStack::CharStack(){
     this->top = nullptr; 
 }
 
-void CharStack::push(char data){
+void CharStack::push(std::string data){
     // Create new node temp and allocate memory in heap
     CharStackNode* temp = new CharStackNode(data);
 
@@ -32,7 +32,7 @@ bool CharStack::isEmpty(){
     return top == nullptr;
 }
 
-char CharStack::getTop(){
+std::string CharStack::getTop(){
     // If stack is not empty , return the top element
     if (!isEmpty())
         return top->data;

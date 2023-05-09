@@ -1,14 +1,15 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <string>
+
 class Node{
     public:
-        char data;
-        char array[7];
+        std::string data;
         Node *left, *right;
         
-        Node(char data);
-        Node(char data, Node *left, Node *right);
+        Node(std::string data);
+        Node(std::string data, Node *left, Node *right);
 };
 
 #endif
