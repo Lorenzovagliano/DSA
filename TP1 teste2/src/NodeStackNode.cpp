@@ -1,6 +1,6 @@
 #include "NodeStackNode.hpp"
 
-NodeStackNode::NodeStackNode(Node* n){
+NodeStackNode::NodeStackNode(TreeNode* n){
     this->data = n;
     this->link = nullptr;
 }

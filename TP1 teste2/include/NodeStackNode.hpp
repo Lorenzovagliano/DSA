@@ -1,17 +1,17 @@
 #ifndef NODESTACKNODE_H
 #define NODESTACKNODE_H
 
-#include "Node.hpp"
+#include "TreeNode.hpp"
 
 class NodeStackNode {
     friend class NodeStack;
     
     private:
-        Node* data;
+        TreeNode* data;
         NodeStackNode* link;
     
     public:
-        NodeStackNode(Node* n);
+        NodeStackNode(TreeNode* n);
 };
 
 #endif

@@ -1,11 +1,11 @@
-#include "NodeStack.hpp"
+#include "StringStack.hpp"
 
-NodeStack::NodeStack(){
+StringStack::StringStack(){
     this->top = nullptr; 
 }
 
-void NodeStack::push(TreeNode* data){
-    NodeStackNode* temp = new NodeStackNode(data);
+void StringStack::push(std::string data){
+    StringStackNode* temp = new StringStackNode(data);
 
     if (!temp) {
         std::cout << "\nStack Overflow";
@@ -17,19 +17,19 @@ void NodeStack::push(TreeNode* data){
     this->top = temp;
 }
 
-bool NodeStack::isEmpty(){
+bool StringStack::isEmpty(){
     return top == nullptr;
 }
 
-TreeNode* NodeStack::getTop(){
+std::string StringStack::getTop(){
     if (!isEmpty())
         return top->data;
     else
         exit(1);
 }
 
-void NodeStack::pop(){
-    NodeStackNode* temp;
+void StringStack::pop(){
+    StringStackNode* temp;
 
     if (top == nullptr) {
         std::cout << "\nStack Underflow" << std::endl;
@@ -38,7 +38,7 @@ void NodeStack::pop(){
     else {
         temp = top;
         top = top->link;
-
+        
         free(temp);
     }
 }
