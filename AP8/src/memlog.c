@@ -15,7 +15,6 @@
 #include <string.h>
 #include <errno.h>
 #include "memlog.h"
-#include "msgassert.h"
 
 // variavel estatica de registro de acessos
 memlog_tipo ml;

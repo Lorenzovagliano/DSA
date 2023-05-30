@@ -1,0 +1,3 @@
+bin/analisamem -i multlog.out -p /tmp/out/
+
+gnuplot /tmp/out/*.gp

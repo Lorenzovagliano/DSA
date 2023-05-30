@@ -1,26 +1,36 @@
 #include "FilaCircular.hpp"
 #include "Pilha.hpp"
+#include "memlog.h"
+
+char lognome[1000];
 
 int main(){
-    Pilha pilha;
+    lognome[0] = 'l';
+    lognome[1] = 'o';
+    lognome[2] = 'g';
 
-    bool isVazia = pilha.pilhaVazia();
+    iniciaMemLog(lognome);
+    ativaMemLog();
 
-    if(isVazia == true){
-        std::cout << "A pilha está vazia\n";
-    }
-    else{
-        std::cout << "A pilha não está vazia\n";
-    }
+    defineFaseMemLog(0);
+    Pilha pilha, pilha2;
 
-    for(int i = 0; i < 50; i++){
+    defineFaseMemLog(1);
+    for(int i = 0; i < 25; i++){
         pilha.empilha(i);
     }
 
-    for(int i = 20; i < 40; i++){
+    defineFaseMemLog(2);
+    for(int i = 0; i < 13; i++){
         pilha.desempilha();
     }
 
     std::cout << "Pilha após todas operações:\n";
+    defineFaseMemLog(3);
     pilha.printPilha();
+
+    desativaMemLog();
+    finalizaMemLog();
+
+    return 0;
 }

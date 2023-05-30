@@ -3,16 +3,20 @@
 
 #include <iostream>
 
-#define SIZE 50
+#define SIZE 25
 
 class FilaCircular{
+    friend class Pilha;
+
     private:
+        int id;
         int array[SIZE];
 
     public:
         int frente = -1;
         int tras = -1;
         
+        FilaCircular();
         bool filaVazia();
         void enfila(int valor);
         void desenfila();

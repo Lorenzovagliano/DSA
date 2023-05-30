@@ -1,5 +1,12 @@
 #include "FilaCircular.hpp"
 
+int idfila = 0;
+
+FilaCircular::FilaCircular(){
+    this->id = idfila;
+    idfila++;
+}
+
 bool FilaCircular::filaVazia(){
     if(this->frente == -1 && this->tras == -1){
         return true;
