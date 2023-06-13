@@ -28,7 +28,7 @@ all: test use
 use: $(EXE)
 	if test -d /tmp/out; then rm -rf /tmp/out; fi
 	mkdir /tmp/out
-	$(EXE) -i teste/multlog.out -p /tmp/out/mult
+	$(EXE) -i multlog.out -p /tmp/out/mult
 	gnuplot /tmp/out/*.gp
 	ls /tmp/out/
 
