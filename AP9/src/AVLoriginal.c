@@ -82,23 +82,6 @@ int main(int argc, char * argv[]) {
   return 0;
 }
 
-int countNodes(node* T) {
-  if (T == NULL) {
-    return 0;
-  }
-  return 1 + countNodes(T->left) + countNodes(T->right);
-}
-
-int getNodesDifference(node *T) {
-  if (T == NULL)
-    return 0;
-
-  int leftNodes = countNodes(T->left); // Função auxiliar para contar o número de nós na subárvore esquerda
-  int rightNodes = countNodes(T->right); // Função auxiliar para contar o número de nós na subárvore direita
-
-  return rightNodes - leftNodes; // Retorna a diferença entre a quantidade de nós na subárvore da direita e na subárvore da esquerda
-}
-
 node * insert(node * T, int x, stat_t * st) {
   if (T == NULL) {
     T = (node * ) malloc(sizeof(node));
@@ -109,7 +92,7 @@ node * insert(node * T, int x, stat_t * st) {
   if (x > T -> data) // insert in right subtree
   {
     T -> right = insert(T -> right, x, st);
-    if (BF(T) == -3 || getNodesDifference(T) > 3){
+    if (BF(T) == -2){
       if (x > T -> right -> data){
         T = RR(T);
 	st->RR++;
@@ -121,7 +104,7 @@ node * insert(node * T, int x, stat_t * st) {
   } else
   if (x < T -> data) {
     T -> left = insert(T -> left, x, st);
-    if (BF(T) == 3 || getNodesDifference(T) > 3){
+    if (BF(T) == 2){
       if (x < T -> left -> data){
         T = LL(T);
 	st->LL++;
@@ -143,7 +126,7 @@ node * Delete(node * T, int x, stat_t * st) {
   if (x > T -> data) // insert in right subtree
   {
     T -> right = Delete(T -> right, x, st);
-    if (BF(T) == 3 || getNodesDifference(T) > 3){
+    if (BF(T) == 2){
       if (BF(T -> left) >= 0){
         T = LL(T);
 	st->LL++;
@@ -156,7 +139,7 @@ node * Delete(node * T, int x, stat_t * st) {
   } else
   if (x < T -> data) {
     T -> left = Delete(T -> left, x, st);
-    if (BF(T) == -3 || getNodesDifference(T) > 3){ //Rebalance during windup
+    if (BF(T) == -2){ //Rebalance during windup
       if (BF(T -> right) <= 0){
         T = RR(T);
 	st->RR++;
@@ -174,7 +157,7 @@ node * Delete(node * T, int x, stat_t * st) {
         p = p -> left;
       T -> data = p -> data;
       T -> right = Delete(T -> right, p -> data, st);
-      if (BF(T) == 3 || getNodesDifference(T) > 3){ //Rebalance during windup
+      if (BF(T) == 2){ //Rebalance during windup
         if (BF(T -> left) >= 0){
           T = LL(T);
 	  st->LL++;
