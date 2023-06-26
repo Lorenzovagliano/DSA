@@ -1,33 +1,32 @@
-CC=g++
-CFLAGS=-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+# Compiler
+CC = gcc
 
-TARGET= ./bin/ConvexHull
-OBJ_DIR = ./obj
-SRC_DIR = ./src
-INCLUDE_DIR = ./include
+# Make directory command
+MAKE = mkdir -p
 
-all: ${TARGET}
+# Remove command
+RM = rm -rf
 
-${TARGET}: ${OBJ_DIR}/Ponto.o ${OBJ_DIR}/Reta.o ${OBJ_DIR}/Fecho.o ${OBJ_DIR}/main.o
-	${CC} ${OBJ_DIR}/*.o -o ${TARGET} ${CFLAGS}
+# Binary
+BIN = hc
 
-${OBJ_DIR}/Ponto.o: ${INCLUDE_DIR}/Ponto.hpp ${SRC_DIR}/Ponto.cpp
-	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Ponto.cpp -o ${OBJ_DIR}/Ponto.o ${CFLAGS}
+# Directories
+SOURCE_DIR = src
+OBJECTS_DIR = .obj
 
-${OBJ_DIR}/Reta.o: ${INCLUDE_DIR}/Ponto.hpp ${INCLUDE_DIR}/Reta.hpp ${SRC_DIR}/Reta.cpp
-	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Reta.cpp -o ${OBJ_DIR}/Reta.o ${CFLAGS}
+# Files
+SOURCE_C = $(wildcard $(SOURCE_DIR)/*.c)
+SOURCE_H = $(filter-out $(SOURCE_DIR)/main.h, $(SOURCE_C:.c=.h))
+OBJECTS = $(SOURCE_C:$(SOURCE_DIR)/%.c=$(OBJECTS_DIR)/%.o)
 
-${OBJ_DIR}/Fecho.o: ${INCLUDE_DIR}/Reta.hpp ${INCLUDE_DIR}/Reta.hpp ${INCLUDE_DIR}/Fecho.hpp ${SRC_DIR}/Fecho.cpp
-	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Fecho.cpp -o ${OBJ_DIR}/Fecho.o ${CFLAGS}
+$(BIN): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $@
 
-${OBJ_DIR}/main.o: ${INCLUDE_DIR}/Ponto.hpp ${INCLUDE_DIR}/Reta.hpp ${INCLUDE_DIR}/Fecho.hpp ${SRC_DIR}/main.cpp
-	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/main.cpp -o ${OBJ_DIR}/main.o ${CFLAGS}
+$(OBJECTS_DIR)/%.o: $(SOURCE_DIR)/%.c $(SOURCE_H) | $(OBJECTS_DIR)
+	$(CC) -c $< -o $@
 
-install:
-	sudo apt-get install libsfml-dev
-	
-run: all
-	${TARGET} $(ENTRADA) $(VIDEO)
+$(OBJECTS_DIR):
+	$(MAKE) $(OBJECTS_DIR)
 
 clean:
-	rm -f ${OBJ_DIR}/* ${TARGET}
+	$(RM) $(OBJECTS_DIR) $(BIN)
