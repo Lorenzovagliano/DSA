@@ -1,32 +1,30 @@
-# Compiler
-CC = gcc
+CC=g++
+CFLAGS=
 
-# Make directory command
-MAKE = mkdir -p
+TARGET= ./bin/Huffman
+OBJ_DIR = ./obj
+SRC_DIR = ./src
+INCLUDE_DIR = ./include
 
-# Remove command
-RM = rm -rf
+all: ${TARGET}
 
-# Binary
-BIN = hc
+${TARGET}: ${OBJ_DIR}/node.o ${OBJ_DIR}/list.o ${OBJ_DIR}/huff.o ${OBJ_DIR}/main.o
+	${CC} ${OBJ_DIR}/*.o -o ${TARGET} ${CFLAGS}
 
-# Directories
-SOURCE_DIR = src
-OBJECTS_DIR = .obj
+${OBJ_DIR}/node.o: ${INCLUDE_DIR}/node.hpp ${SRC_DIR}/node.cpp
+	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/node.cpp -o ${OBJ_DIR}/node.o ${CFLAGS}
 
-# Files
-SOURCE_C = $(wildcard $(SOURCE_DIR)/*.c)
-SOURCE_H = $(filter-out $(SOURCE_DIR)/main.h, $(SOURCE_C:.c=.h))
-OBJECTS = $(SOURCE_C:$(SOURCE_DIR)/%.c=$(OBJECTS_DIR)/%.o)
+${OBJ_DIR}/list.o: ${INCLUDE_DIR}/node.hpp ${INCLUDE_DIR}/list.hpp ${SRC_DIR}/list.cpp
+	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/list.cpp -o ${OBJ_DIR}/list.o ${CFLAGS}
 
-$(BIN): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $@
+${OBJ_DIR}/huff.o: ${INCLUDE_DIR}/list.hpp ${INCLUDE_DIR}/huff.hpp ${SRC_DIR}/huff.cpp
+	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/huff.cpp -o ${OBJ_DIR}/huff.o ${CFLAGS}
 
-$(OBJECTS_DIR)/%.o: $(SOURCE_DIR)/%.c $(SOURCE_H) | $(OBJECTS_DIR)
-	$(CC) -c $< -o $@
-
-$(OBJECTS_DIR):
-	$(MAKE) $(OBJECTS_DIR)
+${OBJ_DIR}/main.o: ${INCLUDE_DIR}/node.hpp ${INCLUDE_DIR}/list.hpp ${INCLUDE_DIR}/huff.hpp ${SRC_DIR}/main.cpp
+	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/main.cpp -o ${OBJ_DIR}/main.o ${CFLAGS}
+	
+run: all
+	${TARGET}
 
 clean:
-	$(RM) $(OBJECTS_DIR) $(BIN)
+	rm -f ${OBJ_DIR}/* ${TARGET}
