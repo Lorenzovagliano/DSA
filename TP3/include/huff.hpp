@@ -32,8 +32,6 @@ class Huff{
     string getFileExtension(string filename, int dotPos);
     string getFileWithoutExtension(string filename, int dotPos);
     string getOutputFilename(string filename);
-    void printCode(string* codes);
-    void printTrie(Node* root);
     string read(string filename);
     string readFileExtension(string* text);
     int readSize(string* text);

@@ -20,11 +20,6 @@ int main(int argc, char* argv[]){
         return 0;
     }
 
-    if(!(strcmp(argv[2], "-c")) || !(strcmp(argv[2], "-d"))){
-        erroUso();
-        return 0;
-    }
-
     for(int i = 0; i < argc; i++){
         Huff* huff = new Huff();
 

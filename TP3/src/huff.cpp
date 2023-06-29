@@ -55,14 +55,12 @@ string Huff::read(string filename){
     ifstream source;
     source.open(filename.c_str());
 
-    if(!source)
-    {
+    if(!source){
         cout << "File not found!\n";
         exit(-1);
     }
 
-    if(!source.is_open())
-    {
+    if(!source.is_open()){
         cout << "It was not possible open the file!\n";
         exit(-1);
     }
@@ -194,37 +192,6 @@ void Huff::buildCode(string* codes, Node* node, string code){
 
     this->buildCode(codes, node->getLeft(), code + '0');
     this->buildCode(codes, node->getRight(), code + '1');
-}
-
-/**
-* Show trie on screen.
-*
-* @param root The head node of the trie.
-*/
-void Huff::printTrie(Node* root){
-    if(root->isLeaf()){
-        root->print();
-        return;
-    }
-
-    this->printTrie(root->getLeft());
-    this->printTrie(root->getRight());
-}
-
-/**
-* Show codes table on screen.
-*
-* @param codes The codes table.
-*/
-void Huff::printCode(string* codes){
-    cout << "Symbol  Bits\n";
-
-    for(int i = 0; i < ASCII; ++i){
-        if(codes[i] != ""){
-            char c = (char)i;
-            cout << "    " << c << "  " << codes[i] << "\n";
-        }
-    }
 }
 
 /**
@@ -387,39 +354,6 @@ string Huff::transform(string text, string* table){
     }
 
     return output;
-}
-
-/**
-* Transform the original filename in a file with hfz extension.
-*
-* @param filename The original filename.
-* @return The modified filename.
-*/
-std::string Huff::getOutputFilename(std::string filename){
-    std::string outputFilename = "";
-    int endIndex = filename.size() - 1;
-
-    while(endIndex >= 0){
-        if(filename[endIndex] == '.'){
-            --endIndex;
-            break;
-        }
-
-        --endIndex;
-    }
-
-    if(endIndex >= 0){
-        for(int i = 0; i <= endIndex; ++i){
-            outputFilename += filename[i];
-        }
-    }
-    else{
-        outputFilename = filename;
-    }
-
-    outputFilename += ".hfz";
-
-    return outputFilename;
 }
 
 /**
