@@ -86,8 +86,7 @@ string Huff::read(string filename){
 List* Huff::buildList(string text){
     List* list = new List();
 
-    for (int i = 0; i < text.size(); ++i)
-    {
+    for(int i = 0; i < text.size(); ++i){
         list->add(text[i]);
     }
 
@@ -105,29 +104,23 @@ string Huff::buildBytes(string bitflow){
     unsigned int currbit = 0;
     std::string output = "";
 
-    while (currbit < bitflow.size())
-    {
-        for (int i = 0; i < BYTE_SIZE; )
-        {
-            if(bitflow[currbit] == '1')
-            {
+    while(currbit < bitflow.size()){
+        for(int i = 0; i < BYTE_SIZE; ){
+            if(bitflow[currbit] == '1'){
                 byte = byte << 1;
                 byte = byte | 1;
             }
-            else if(bitflow[currbit] == '0')
-            {
+            else if(bitflow[currbit] == '0'){
                 byte = byte << 1;
             }
 
             ++currbit;
             ++i;
 
-            if(currbit >= bitflow.size())
-            {
+            if(currbit >= bitflow.size()){
                 int remaind = 8 - i;
 
-                for (int j = 0; j < remaind; ++j)
-                {
+                for(int j = 0; j < remaind; ++j){
                     byte = byte << 1;
                 }
 
@@ -149,18 +142,15 @@ string Huff::buildBytes(string bitflow){
 * @return The head node of the trie.
 */
 Node* Huff::buildTrie(List *list){
-    if(list == NULL)
-    {
+    if(list == NULL){
         throw "Argument is null!";
     }
 
-    if(list->getLength() == 0)
-    {
+    if(list->getLength() == 0){
         throw "List is empty!";
     }
 
-    while (list->getLength() > 1)
-    {
+    while(list->getLength() > 1){
         Node* first = list->getFirst();
         Node* second = list->getFirst()->getNext();
 
@@ -197,8 +187,7 @@ string* Huff::buildCode(Node *root){
 * @return The code table.
 */
 void Huff::buildCode(string* codes, Node* node, string code){
-    if(node->isLeaf())
-    {
+    if(node->isLeaf()){
         codes[node->getSymbol()] = code;     
         return;
     }
@@ -213,8 +202,7 @@ void Huff::buildCode(string* codes, Node* node, string code){
 * @param root The head node of the trie.
 */
 void Huff::printTrie(Node* root){
-    if(root->isLeaf())
-    {
+    if(root->isLeaf()){
         root->print();
         return;
     }
@@ -231,10 +219,8 @@ void Huff::printTrie(Node* root){
 void Huff::printCode(string* codes){
     cout << "Symbol  Bits\n";
 
-    for (int i = 0; i < ASCII; ++i)
-    {
-        if(codes[i] != "")
-        {
+    for(int i = 0; i < ASCII; ++i){
+        if(codes[i] != ""){
             char c = (char)i;
             cout << "    " << c << "  " << codes[i] << "\n";
         }
@@ -299,8 +285,7 @@ string Huff::transform(Node* node){
 * @return The string state constructed from the trie after checking the current node.
 */
 string Huff::transform(Node* node, string output){
-    if(node->isLeaf())
-    {
+    if(node->isLeaf()){
         output += '1';
         output += node->getSymbol();
         return output;
@@ -323,8 +308,7 @@ string Huff::readFileExtension(string* text){
     
     int i;
 
-    for (i = 0; (*text)[i] != ','; ++i)
-    {
+    for(i = 0; (*text)[i] != ','; ++i){
         ext += (*text)[i];
     }
 
@@ -398,8 +382,7 @@ int Huff::readSize(string* text){
 string Huff::transform(string text, string* table){
     string output = "";
 
-    for (int i = 0; i < text.size(); ++i)
-    {
+    for(int i = 0; i < text.size(); ++i){
         output += table[text[i]];
     }
 
@@ -416,10 +399,8 @@ std::string Huff::getOutputFilename(std::string filename){
     std::string outputFilename = "";
     int endIndex = filename.size() - 1;
 
-    while (endIndex >= 0)
-    {
-        if(filename[endIndex] == '.')
-        {
+    while(endIndex >= 0){
+        if(filename[endIndex] == '.'){
             --endIndex;
             break;
         }
@@ -427,15 +408,12 @@ std::string Huff::getOutputFilename(std::string filename){
         --endIndex;
     }
 
-    if(endIndex >= 0)
-    {
-        for (int i = 0; i <= endIndex; ++i)
-        {
+    if(endIndex >= 0){
+        for(int i = 0; i <= endIndex; ++i){
             outputFilename += filename[i];
         }
     }
-    else
-    {
+    else{
         outputFilename = filename;
     }
 
@@ -453,17 +431,13 @@ std::string Huff::getOutputFilename(std::string filename){
 string Huff::bytesToBitflow(string bytes){
     string bits = "";
 
-    for (int i = 0; i < bytes.size(); ++i)
-    {
-        for (int j = 0; j < BYTE_SIZE; ++j)
-        {
-            if((bytes[i] & 256) == 256) // compare "c" with 1000 0000
-            {
+    for(int i = 0; i < bytes.size(); ++i){
+        for(int j = 0; j < BYTE_SIZE; ++j){
+            if((bytes[i] & 256) == 256){
                 bits += '1';
                 
             }
-            else
-            {
+            else{
                 bits += '0';
             }
 
@@ -486,10 +460,10 @@ string Huff::translate(string bitflow, int size, Node* root){
     int bit = 0;
     string text = "";
 
-    for (int i = 0; i < size; ++i){
+    for(int i = 0; i < size; ++i){
         Node* node = root;
 
-        while (!node->isLeaf()){
+        while(!node->isLeaf()){
             if(bitflow[bit] == '1'){
                 node = node->getRight();
                 
@@ -508,7 +482,7 @@ string Huff::translate(string bitflow, int size, Node* root){
 }
 
 /**
-* Searches for the specified character and return its index. Ifnot, return -1.
+* Searches forthe specified character and return its index. Ifnot, return -1.
 *
 * @param filename The filename.
 * @param charact The character.
@@ -517,7 +491,7 @@ string Huff::translate(string bitflow, int size, Node* root){
 int Huff::find(string filename, char charact){
     int index = -1;
 
-    for (int i = filename.size() - 1; i > 0; --i){
+    for(int i = filename.size() - 1; i > 0; --i){
         if(filename[i] == charact){
             index = i;
             return index;
