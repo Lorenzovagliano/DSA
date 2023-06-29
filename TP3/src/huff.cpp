@@ -17,6 +17,7 @@ Huff::Huff(){
 * Compress the specified file.
 *
 * @param filename The filename.
+* @param outputFileName The output file name.
 */
 void Huff::compress(string filename, string outputFileName){
     string text = this->read(filename);
@@ -32,6 +33,7 @@ void Huff::compress(string filename, string outputFileName){
 * Uncompress the specified file.
 *
 * @param filename The filename.
+* @param outputFileName The output file name.
 */
 void Huff::expand(string filename, string outputFileName){
     string text = this->read(filename);

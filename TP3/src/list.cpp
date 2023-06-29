@@ -44,7 +44,7 @@ void List::remove(Node* node){
         return;
     }
 
-    for (Node* aux = this->first; aux != NULL; aux = aux->next){
+    for(Node* aux = this->first; aux != NULL; aux = aux->next){
         if(node == aux){
             // Remove o único.
             if(this->length == 1){
@@ -88,7 +88,7 @@ bool List::isEmpty(){
 }
 
 Node* List::getNode(char symbol){
-    for (Node* aux = this->first; aux != NULL; aux = aux->next){
+    for(Node* aux = this->first; aux != NULL; aux = aux->next){
         if(aux->symbol == symbol){
             
             return aux;
