@@ -5,8 +5,7 @@
 
 // Operators overloading.
 
-std::ostream& operator<< (std::ostream& stream, Node& node)
-{
+std::ostream& operator<< (std::ostream& stream, Node& node){
     std::stringstream ss;
     ss << node.getFrequency();
 
@@ -21,16 +20,14 @@ std::ostream& operator<< (std::ostream& stream, Node& node)
 
 // Constructors.
 
-Node::Node()
-{
+Node::Node(){
     this->symbol = '\0';
     this->frequency = 0;
     this->left = NULL;
     this->right = NULL;
 }
 
-Node::Node(char symbol, int frequency)
-{
+Node::Node(char symbol, int frequency){
     this->symbol = symbol;
     this->frequency = frequency;
     this->prev = NULL;
@@ -39,8 +36,7 @@ Node::Node(char symbol, int frequency)
     this->right = NULL;
 }
 
-Node::Node(char symbol, int frequency, Node* prev, Node* next)
-{
+Node::Node(char symbol, int frequency, Node* prev, Node* next){
     this->symbol = symbol;
     this->frequency = frequency;
     this->prev = prev;
@@ -49,8 +45,7 @@ Node::Node(char symbol, int frequency, Node* prev, Node* next)
     this->right = NULL;
 }
 
-Node::Node(int frequency, Node* left, Node* right)
-{
+Node::Node(int frequency, Node* left, Node* right){
     this->symbol = '\0';
     this->frequency = frequency;
     this->prev = NULL;
@@ -59,8 +54,7 @@ Node::Node(int frequency, Node* left, Node* right)
     this->right = right;
 }
 
-Node::Node(char symbol, int frequency, Node* prev, Node* next, Node* left, Node* right)
-{
+Node::Node(char symbol, int frequency, Node* prev, Node* next, Node* left, Node* right){
     this->symbol = symbol;
     this->frequency = frequency;
     this->prev = prev;
@@ -71,72 +65,58 @@ Node::Node(char symbol, int frequency, Node* prev, Node* next, Node* left, Node*
 
 // Methods.
 
-void Node::setSymbol(char symbol)
-{
+void Node::setSymbol(char symbol){
     this->symbol = symbol;
 }
 
-char Node::getSymbol()
-{
+char Node::getSymbol(){
     return this->symbol;
 }
 
-void Node::setFrequency(int frequency)
-{
+void Node::setFrequency(int frequency){
     this->frequency = frequency;
 }
 
-int Node::getFrequency()
-{
+int Node::getFrequency(){
     return this->frequency;
 }
 
-void Node::setLeft(Node* left)
-{
+void Node::setLeft(Node* left){
     this->left = left;
 }
 
-Node* Node::getLeft()
-{
+Node* Node::getLeft(){
     return this->left;
 }
 
-void Node::setRight(Node* right)
-{
+void Node::setRight(Node* right){
     this->right = right;
 }
 
-Node* Node::getRight()
-{
+Node* Node::getRight(){
     return this->right;
 }
 
-void Node::setPrev(Node* prev)
-{
+void Node::setPrev(Node* prev){
     this->prev = prev;
 }
 
-Node* Node::getPrev()
-{
+Node* Node::getPrev(){
     return this->prev;
 }
 
-void Node::setNext(Node* next)
-{
+void Node::setNext(Node* next){
     this->next = next;
 }
 
-Node* Node::getNext()
-{
+Node* Node::getNext(){
     return this->next;
 }
 
-void Node::print()
-{
+void Node::print(){
     std::cout << *this;
 }
 
-bool Node::isLeaf()
-{
+bool Node::isLeaf(){
     return this->left == NULL && this->right == NULL;
 }

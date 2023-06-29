@@ -3,8 +3,7 @@
 
 #include "node.hpp"
 
-class List
-{
+class List{
     public:
 
     // Constructors.

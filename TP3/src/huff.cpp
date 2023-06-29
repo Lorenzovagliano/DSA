@@ -9,8 +9,7 @@
 
 // Public.
 
-Huff::Huff()
-{
+Huff::Huff(){
     this->list = NULL;
 }
 
@@ -19,8 +18,7 @@ Huff::Huff()
 *
 * @param filename The filename.
 */
-void Huff::compress(string filename, string outputFileName)
-{
+void Huff::compress(string filename, string outputFileName){
     string text = this->read(filename);
     List* list = this->buildList(text);
     Node* node = this->buildTrie(list);
@@ -35,8 +33,7 @@ void Huff::compress(string filename, string outputFileName)
 *
 * @param filename The filename.
 */
-void Huff::expand(string filename, string outputFileName)
-{
+void Huff::expand(string filename, string outputFileName){
     string text = this->read(filename);
     string ext = this->readFileExtension(&text);
     Node* root = this->readTrie(&text);
@@ -54,18 +51,17 @@ void Huff::expand(string filename, string outputFileName)
 * @param filename The filename.
 * @return The content of the file.
 */
-string Huff::read(string filename)
-{
+string Huff::read(string filename){
     ifstream source;
     source.open(filename.c_str());
 
-    if (!source)
+    if(!source)
     {
         cout << "File not found!\n";
         exit(-1);
     }
 
-    if (!source.is_open())
+    if(!source.is_open())
     {
         cout << "It was not possible open the file!\n";
         exit(-1);
@@ -87,8 +83,7 @@ string Huff::read(string filename)
 * @param text The source text.
 * @return The list.
 */
-List* Huff::buildList(string text)
-{
+List* Huff::buildList(string text){
     List* list = new List();
 
     for (int i = 0; i < text.size(); ++i)
@@ -105,8 +100,7 @@ List* Huff::buildList(string text)
 * @param bitflow The bits sequency.
 * @return The correspondent string.
 */
-string Huff::buildBytes(string bitflow)
-{
+string Huff::buildBytes(string bitflow){
     unsigned char byte = 0;
     unsigned int currbit = 0;
     std::string output = "";
@@ -115,12 +109,12 @@ string Huff::buildBytes(string bitflow)
     {
         for (int i = 0; i < BYTE_SIZE; )
         {
-            if (bitflow[currbit] == '1')
+            if(bitflow[currbit] == '1')
             {
                 byte = byte << 1;
                 byte = byte | 1;
             }
-            else if (bitflow[currbit] == '0')
+            else if(bitflow[currbit] == '0')
             {
                 byte = byte << 1;
             }
@@ -128,7 +122,7 @@ string Huff::buildBytes(string bitflow)
             ++currbit;
             ++i;
 
-            if (currbit >= bitflow.size())
+            if(currbit >= bitflow.size())
             {
                 int remaind = 8 - i;
 
@@ -154,14 +148,13 @@ string Huff::buildBytes(string bitflow)
 * @param list The reference to the list.
 * @return The head node of the trie.
 */
-Node* Huff::buildTrie(List *list)
-{
-    if (list == NULL)
+Node* Huff::buildTrie(List *list){
+    if(list == NULL)
     {
         throw "Argument is null!";
     }
 
-    if (list->getLength() == 0)
+    if(list->getLength() == 0)
     {
         throw "List is empty!";
     }
@@ -189,8 +182,7 @@ Node* Huff::buildTrie(List *list)
 * @param root The head node of the trie.
 * @return The codes table.
 */
-string* Huff::buildCode(Node *root)
-{
+string* Huff::buildCode(Node *root){
     string* codes = new string[ASCII];
     this->buildCode(codes, root, "");
     return codes;
@@ -204,9 +196,8 @@ string* Huff::buildCode(Node *root)
 * @param code The current code under construction.
 * @return The code table.
 */
-void Huff::buildCode(string* codes, Node* node, string code)
-{
-    if (node->isLeaf())
+void Huff::buildCode(string* codes, Node* node, string code){
+    if(node->isLeaf())
     {
         codes[node->getSymbol()] = code;     
         return;
@@ -221,9 +212,8 @@ void Huff::buildCode(string* codes, Node* node, string code)
 *
 * @param root The head node of the trie.
 */
-void Huff::printTrie(Node* root)
-{
-    if (root->isLeaf())
+void Huff::printTrie(Node* root){
+    if(root->isLeaf())
     {
         root->print();
         return;
@@ -238,13 +228,12 @@ void Huff::printTrie(Node* root)
 *
 * @param codes The codes table.
 */
-void Huff::printCode(string* codes)
-{
+void Huff::printCode(string* codes){
     cout << "Symbol  Bits\n";
 
     for (int i = 0; i < ASCII; ++i)
     {
-        if (codes[i] != "")
+        if(codes[i] != "")
         {
             char c = (char)i;
             cout << "    " << c << "  " << codes[i] << "\n";
@@ -258,8 +247,7 @@ void Huff::printCode(string* codes)
 * @param text The text to save.
 * @param filename The name of target file.
 */
-void Huff::write(string text, string filename)
-{
+void Huff::write(string text, string filename){
     // Save on file.
     ofstream target;
     target.open(filename.c_str());
@@ -274,8 +262,7 @@ void Huff::write(string text, string filename)
 * @param size The original string size.
 * @param bitflow The bits sequency built.
 */
-void Huff::write(string fileext, string trie, int size, string bitflow, string filename)
-{
+void Huff::write(string fileext, string trie, int size, string bitflow, string filename){
     // Save file extension.
     string output = fileext + ",";
 
@@ -300,8 +287,7 @@ void Huff::write(string fileext, string trie, int size, string bitflow, string f
 * @param node The head node of the trie.
 * @return The string constructed from the trie.
 */
-string Huff::transform(Node* node)
-{
+string Huff::transform(Node* node){
     return this->transform(node, "");
 }
 
@@ -312,9 +298,8 @@ string Huff::transform(Node* node)
 * @param output The string state constructed from the trie before checking the current node.
 * @return The string state constructed from the trie after checking the current node.
 */
-string Huff::transform(Node* node, string output)
-{
-    if (node->isLeaf())
+string Huff::transform(Node* node, string output){
+    if(node->isLeaf())
     {
         output += '1';
         output += node->getSymbol();
@@ -333,8 +318,7 @@ string Huff::transform(Node* node, string output)
 * @param text Content of compressed file.
 * @return The file extension.
 */
-string Huff::readFileExtension(string* text)
-{
+string Huff::readFileExtension(string* text){
     string ext = "";
     
     int i;
@@ -355,8 +339,7 @@ string Huff::readFileExtension(string* text)
 * @param text Content of compressed file.
 * @return The trie.
 */
-Node* Huff::readTrie(string* text)
-{
+Node* Huff::readTrie(string* text){
     int index = -1;
     Node* node = this->readTrie(*text, &index);
     index++;
@@ -371,12 +354,10 @@ Node* Huff::readTrie(string* text)
 * @param index Content head.
 * @return The trie.
 */
-Node* Huff::readTrie(string text, int* index)
-{
+Node* Huff::readTrie(string text, int* index){
     (*index)++;
 
-    if (text[*index] == '1')
-    {
+    if(text[*index] == '1'){
         (*index)++;
         char symbol = text[*index];
         return new Node(symbol, 0, NULL, NULL, NULL, NULL);
@@ -391,8 +372,7 @@ Node* Huff::readTrie(string text, int* index)
 * @param text Content of compressed file.
 * @return The original bytes size.
 */
-int Huff::readSize(string* text)
-{
+int Huff::readSize(string* text){
     stringstream ss(*text);
     int size;
 
@@ -415,8 +395,7 @@ int Huff::readSize(string* text)
 * @param text The built table.
 * @return The compression bitflow.
 */
-string Huff::transform(string text, string* table)
-{
+string Huff::transform(string text, string* table){
     string output = "";
 
     for (int i = 0; i < text.size(); ++i)
@@ -433,14 +412,13 @@ string Huff::transform(string text, string* table)
 * @param filename The original filename.
 * @return The modified filename.
 */
-std::string Huff::getOutputFilename(std::string filename)
-{
+std::string Huff::getOutputFilename(std::string filename){
     std::string outputFilename = "";
     int endIndex = filename.size() - 1;
 
     while (endIndex >= 0)
     {
-        if (filename[endIndex] == '.')
+        if(filename[endIndex] == '.')
         {
             --endIndex;
             break;
@@ -449,7 +427,7 @@ std::string Huff::getOutputFilename(std::string filename)
         --endIndex;
     }
 
-    if (endIndex >= 0)
+    if(endIndex >= 0)
     {
         for (int i = 0; i <= endIndex; ++i)
         {
@@ -472,15 +450,14 @@ std::string Huff::getOutputFilename(std::string filename)
 * @param bytes The compressed bytes.
 * @return The bitflow.
 */
-string Huff::bytesToBitflow(string bytes)
-{
+string Huff::bytesToBitflow(string bytes){
     string bits = "";
 
     for (int i = 0; i < bytes.size(); ++i)
     {
         for (int j = 0; j < BYTE_SIZE; ++j)
         {
-            if ((bytes[i] & 256) == 256) // compare "c" with 1000 0000
+            if((bytes[i] & 256) == 256) // compare "c" with 1000 0000
             {
                 bits += '1';
                 
@@ -505,24 +482,19 @@ string Huff::bytesToBitflow(string bytes)
 * @param root The root node of trie.
 * @return The original text.
 */
-string Huff::translate(string bitflow, int size, Node* root)
-{
+string Huff::translate(string bitflow, int size, Node* root){
     int bit = 0;
     string text = "";
 
-    for (int i = 0; i < size; ++i)
-    {
+    for (int i = 0; i < size; ++i){
         Node* node = root;
 
-        while (!node->isLeaf())
-        {
-            if (bitflow[bit] == '1')
-            {
+        while (!node->isLeaf()){
+            if(bitflow[bit] == '1'){
                 node = node->getRight();
                 
             }
-            else
-            {
+            else{
                 node = node->getLeft();
             }
 
@@ -536,20 +508,17 @@ string Huff::translate(string bitflow, int size, Node* root)
 }
 
 /**
-* Searches for the specified character and return its index. If not, return -1.
+* Searches for the specified character and return its index. Ifnot, return -1.
 *
 * @param filename The filename.
 * @param charact The character.
 * @return The character index.
 */
-int Huff::find(string filename, char charact)
-{
+int Huff::find(string filename, char charact){
     int index = -1;
 
-    for (int i = filename.size() - 1; i > 0; --i)
-    {
-        if (filename[i] == charact)
-        {
+    for (int i = filename.size() - 1; i > 0; --i){
+        if(filename[i] == charact){
             index = i;
             return index;
         }
@@ -565,29 +534,10 @@ int Huff::find(string filename, char charact)
 * @param index The index of separator to split the filename. Most common: doth.
 * @return The file extension.
 */
-string Huff::getFileExtension(string filename, int index)
-{
-    if (index != -1)
-    {
+string Huff::getFileExtension(string filename, int index){
+    if(index != -1){
         filename.replace(0, index + 1, "");
     }
     
-    return filename;
-}
-
-/**
-* Get the filename without its extension.
-*
-* @param filename The filename.
-* @param index The index of separator to split the filename. Most common: doth.
-* @return The filename without its extension.
-*/
-string Huff::getFileWithoutExtension(string filename, int index)
-{
-    if (index != -1)
-    {
-        filename.replace(index, filename.size() - 1, "");
-    }
-
     return filename;
 }

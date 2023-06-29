@@ -3,8 +3,7 @@
 
 // Constructors.
 
-List::List()
-{
+List::List(){
     this->first = NULL;
     this->last = NULL;
     this->length = 0;
@@ -12,32 +11,26 @@ List::List()
 
 // Methods.
 
-void List::add(char symbol)
-{
+void List::add(char symbol){
     Node* node = this->getNode(symbol);
 
-    if (node != NULL)
-    {
+    if(node != NULL){
         node->setFrequency(node->getFrequency() + 1);
         this->sort(node);
     }
-    else
-    {
+    else{
         node = new Node(symbol, 1);
         this->add(node);
     }
 }
 
-void List::add(Node* node)
-{
-    if (this->isEmpty())
-    {
+void List::add(Node* node){
+    if(this->isEmpty()){
         this->first = node;
         this->last = node;
         this->length = 1;
     }
-    else
-    {
+    else{
         node->setNext(this->first);
         this->first->setPrev(node);
         this->first = node;
@@ -46,20 +39,15 @@ void List::add(Node* node)
     }
 }
 
-void List::remove(Node* node)
-{
-    if (this->getLength() == 0)
-    {
+void List::remove(Node* node){
+    if(this->getLength() == 0){
         return;
     }
 
-    for (Node* aux = this->first; aux != NULL; aux = aux->getNext())
-    {
-        if (node == aux)
-        {
+    for (Node* aux = this->first; aux != NULL; aux = aux->getNext()){
+        if(node == aux){
             // Remove o único.
-            if (this->getLength() == 1)
-            {
+            if(this->getLength() == 1){
                 this->first = NULL;
                 this->last = NULL;
                 this->length--;
@@ -68,8 +56,7 @@ void List::remove(Node* node)
             }
 
             // Remove primeiro.
-            if (node == this->first)
-            {
+            if(node == this->first){
                 this->first = this->first->getNext();
                 this->first->setPrev(NULL);
                 node = NULL;
@@ -78,8 +65,7 @@ void List::remove(Node* node)
             }
 
             // Remove último.
-            if (node == this->last)
-            {
+            if(node == this->last){
                 this->last = this->last->getPrev();
                 this->last->setNext(NULL);
                 node = NULL;
@@ -97,32 +83,25 @@ void List::remove(Node* node)
     }
 }
 
-Node* List::getLast()
-{
+Node* List::getLast(){
     return this->last;
 }
 
-Node* List::getFirst()
-{
+Node* List::getFirst(){
     return this->first;
 }
 
-int List::getLength()
-{
+int List::getLength(){
     return this->length;
 }
 
-bool List::isEmpty()
-{
+bool List::isEmpty(){
     return this->first == NULL && this->last == NULL;
 }
 
-Node* List::getNode(char symbol)
-{
-    for (Node* aux = this->first; aux != NULL; aux = aux->getNext())
-    {
-        if (aux->getSymbol() == symbol)
-        {
+Node* List::getNode(char symbol){
+    for (Node* aux = this->first; aux != NULL; aux = aux->getNext()){
+        if(aux->getSymbol() == symbol){
             
             return aux;
         }
@@ -131,40 +110,33 @@ Node* List::getNode(char symbol)
     return NULL;
 }
 
-void List::shift(Node* node, Node* other)
-{
+void List::shift(Node* node, Node* other){
     Node* beforeNode = NULL;
     Node* afterNode = NULL;
     Node* beforeOther = NULL;
     Node* afterOther = NULL;
 
-    if (this->first == node)
-    {
+    if(this->first == node){
         this->first = other;
     }
 
-    if (this->last == other)
-    {
+    if(this->last == other){
         this->last = node;
     }
 
-    if (other->getPrev() != NULL)
-    {
+    if(other->getPrev() != NULL){
         beforeOther = other->getPrev();
     }
 
-    if (other->getNext() != NULL)
-    {
+    if(other->getNext() != NULL){
         afterOther = other->getNext();
     }
 
-    if (node->getPrev() != NULL)
-    {
+    if(node->getPrev() != NULL){
         beforeNode = node->getPrev();
     }
 
-    if (node->getNext() != NULL)
-    {
+    if(node->getNext() != NULL){
         afterNode = node->getNext();
     }
 
@@ -173,68 +145,54 @@ void List::shift(Node* node, Node* other)
     other->setNext(NULL);
     other->setPrev(NULL);
 
-    if (beforeOther != NULL)
-    {
-        if (beforeOther != node)
-        {
+    if(beforeOther != NULL){
+        if(beforeOther != node){
             node->setPrev(beforeOther);
             beforeOther->setNext(node);
         }
-        else
-        {
+        else{
             node->setPrev(other);
             other->setNext(node);
         }
     }
 
-    if (afterOther != NULL)
-    {
+    if(afterOther != NULL){
         node->setNext(afterOther);
         afterOther->setPrev(node);
     }
     
-    if (beforeNode != NULL)
-    {
+    if(beforeNode != NULL){
         other->setPrev(beforeNode);
         beforeNode->setNext(other);
     }
 
-    if (afterNode != NULL)
-    {
-        if (afterNode != other)
-        {
+    if(afterNode != NULL){
+        if(afterNode != other){
             other->setNext(afterNode);
             afterNode->setPrev(other);
         }
-        else
-        {
+        else{
             other->setNext(node);
             node->setPrev(other);
         }
     }
 }
 
-void List::print()
-{
-    for (Node* aux = this->getFirst(); aux != NULL; aux = aux->getNext())
-    {
+void List::print(){
+    for (Node* aux = this->getFirst(); aux != NULL; aux = aux->getNext()){
         aux->print();
 
-        if (aux->getPrev() != NULL)
-        {
+        if(aux->getPrev() != NULL){
             std::cout << "\t\tleft: " << *aux->getPrev();
         }
-        else
-        {
+        else{
             std::cout << "\t\t\t\t";
         }
 
-        if (aux->getNext() != NULL)
-        {
+        if(aux->getNext() != NULL){
             std::cout << "\t\tright: " << *aux->getNext();
         }
-        else
-        {
+        else{
             std::cout << "\t\t\t\t";
         }
 
@@ -242,27 +200,22 @@ void List::print()
     }
 }
 
-void List::sort(Node* node)
-{
+void List::sort(Node* node){
     bool needShift = false;
     Node* aux = node;
 
-    if (aux->getNext() != NULL)
-    {
-        while (node->getFrequency() > aux->getNext()->getFrequency())
-        {
+    if(aux->getNext() != NULL){
+        while (node->getFrequency() > aux->getNext()->getFrequency()){
             needShift = true;
             
             aux = aux->getNext();
 
-            if (aux->getNext() == NULL)
-            {
+            if(aux->getNext() == NULL){
                 break;
             }
         }
 
-        if (needShift)
-        {
+        if(needShift){
             this->shift(node, aux);
         }
     }

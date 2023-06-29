@@ -3,8 +3,7 @@
 
 #include <iostream>
 
-class Node
-{
+class Node{
     public:
 
     // Constructors.

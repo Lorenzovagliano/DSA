@@ -8,8 +8,7 @@
 
 using namespace std;
 
-class Huff
-{
+class Huff{
     public:
     // Constructors.
     Huff();
