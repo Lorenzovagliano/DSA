@@ -5,36 +5,30 @@
 
 class List{
     public:
+        // Attributes.
+        Node* first;
+        Node* last;
+        int length;
 
-    // Constructors.
-    List();
+        // Constructors.
+        List();
 
-    // Destructor.
-    ~List();
+        // Destructor.
+        ~List();
 
-    // Methods.
-    void add(char symbol);
-    void add(Node* node);
-    void remove(Node* node);
-    bool isEmpty();
-    void print();
+        // Methods.
+        void add(char symbol);
+        void add(Node* node);
+        void remove(Node* node);
+        bool isEmpty();
 
-    // Getters and Setters.
-    Node* getFirst();
-    Node* getLast();
-    Node* getNode(char symbol);
-    int getLength();
+        // Getters and Setters.
+        Node* getNode(char symbol);
 
     private:
-    
-    // Attributes.
-    Node* first;
-    Node* last;
-    int length;
-
-    // Methods.
-    void shift(Node* node, Node* other);
-    void sort(Node* node);
+        // Methods.
+        void shift(Node* node, Node* other);
+        void sort(Node* node);
 };
 
 #endif

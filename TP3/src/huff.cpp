@@ -144,15 +144,15 @@ Node* Huff::buildTrie(List *list){
         throw "Argument is null!";
     }
 
-    if(list->getLength() == 0){
+    if(list->length == 0){
         throw "List is empty!";
     }
 
-    while(list->getLength() > 1){
-        Node* first = list->getFirst();
-        Node* second = list->getFirst()->getNext();
+    while(list->length > 1){
+        Node* first = list->first;
+        Node* second = list->first->next;
 
-        int frequency = first->getFrequency() + second->getFrequency();
+        int frequency = first->frequency + second->frequency;
 
         Node* parent = new Node(frequency, first, second);
 
@@ -161,7 +161,7 @@ Node* Huff::buildTrie(List *list){
         list->add(parent);
     }
 
-    return list->getFirst();
+    return list->first;
 }
 
 /**
@@ -186,12 +186,12 @@ string* Huff::buildCode(Node *root){
 */
 void Huff::buildCode(string* codes, Node* node, string code){
     if(node->isLeaf()){
-        codes[node->getSymbol()] = code;     
+        codes[node->symbol] = code;     
         return;
     }
 
-    this->buildCode(codes, node->getLeft(), code + '0');
-    this->buildCode(codes, node->getRight(), code + '1');
+    this->buildCode(codes, node->left, code + '0');
+    this->buildCode(codes, node->right, code + '1');
 }
 
 /**
@@ -254,13 +254,13 @@ string Huff::transform(Node* node){
 string Huff::transform(Node* node, string output){
     if(node->isLeaf()){
         output += '1';
-        output += node->getSymbol();
+        output += node->symbol;
         return output;
     }
 
     output += '0';
-    output = transform(node->getLeft(), output);
-    output = transform(node->getRight(), output);
+    output = transform(node->left, output);
+    output = transform(node->right, output);
     return output;
 }
 
@@ -399,17 +399,17 @@ string Huff::translate(string bitflow, int size, Node* root){
 
         while(!node->isLeaf()){
             if(bitflow[bit] == '1'){
-                node = node->getRight();
+                node = node->right;
                 
             }
             else{
-                node = node->getLeft();
+                node = node->left;
             }
 
             ++bit;
         }
 
-        text += node->getSymbol();
+        text += node->symbol;
     }
 
     return text;

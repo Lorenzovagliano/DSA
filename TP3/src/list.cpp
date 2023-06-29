@@ -15,7 +15,7 @@ void List::add(char symbol){
     Node* node = this->getNode(symbol);
 
     if(node != NULL){
-        node->setFrequency(node->getFrequency() + 1);
+        node->setFrequency(node->frequency + 1);
         this->sort(node);
     }
     else{
@@ -40,14 +40,14 @@ void List::add(Node* node){
 }
 
 void List::remove(Node* node){
-    if(this->getLength() == 0){
+    if(this->length == 0){
         return;
     }
 
-    for (Node* aux = this->first; aux != NULL; aux = aux->getNext()){
+    for (Node* aux = this->first; aux != NULL; aux = aux->next){
         if(node == aux){
             // Remove o único.
-            if(this->getLength() == 1){
+            if(this->length == 1){
                 this->first = NULL;
                 this->last = NULL;
                 this->length--;
@@ -57,7 +57,7 @@ void List::remove(Node* node){
 
             // Remove primeiro.
             if(node == this->first){
-                this->first = this->first->getNext();
+                this->first = this->first->next;
                 this->first->setPrev(NULL);
                 node = NULL;
                 this->length--;
@@ -66,7 +66,7 @@ void List::remove(Node* node){
 
             // Remove último.
             if(node == this->last){
-                this->last = this->last->getPrev();
+                this->last = this->last->prev;
                 this->last->setNext(NULL);
                 node = NULL;
                 this->length--;
@@ -74,8 +74,8 @@ void List::remove(Node* node){
             }
 
             // Remove no meio
-            node->getPrev()->setNext(node->getNext());
-            node->getNext()->setPrev(node->getPrev());
+            node->prev->setNext(node->next);
+            node->next->setPrev(node->prev);
             node = NULL;
             this->length--;
             break;
@@ -83,25 +83,13 @@ void List::remove(Node* node){
     }
 }
 
-Node* List::getLast(){
-    return this->last;
-}
-
-Node* List::getFirst(){
-    return this->first;
-}
-
-int List::getLength(){
-    return this->length;
-}
-
 bool List::isEmpty(){
     return this->first == NULL && this->last == NULL;
 }
 
 Node* List::getNode(char symbol){
-    for (Node* aux = this->first; aux != NULL; aux = aux->getNext()){
-        if(aux->getSymbol() == symbol){
+    for (Node* aux = this->first; aux != NULL; aux = aux->next){
+        if(aux->symbol == symbol){
             
             return aux;
         }
@@ -124,20 +112,20 @@ void List::shift(Node* node, Node* other){
         this->last = node;
     }
 
-    if(other->getPrev() != NULL){
-        beforeOther = other->getPrev();
+    if(other->prev != NULL){
+        beforeOther = other->prev;
     }
 
-    if(other->getNext() != NULL){
-        afterOther = other->getNext();
+    if(other->next != NULL){
+        afterOther = other->next;
     }
 
-    if(node->getPrev() != NULL){
-        beforeNode = node->getPrev();
+    if(node->prev != NULL){
+        beforeNode = node->prev;
     }
 
-    if(node->getNext() != NULL){
-        afterNode = node->getNext();
+    if(node->next != NULL){
+        afterNode = node->next;
     }
 
     node->setNext(NULL);
@@ -178,39 +166,17 @@ void List::shift(Node* node, Node* other){
     }
 }
 
-void List::print(){
-    for (Node* aux = this->getFirst(); aux != NULL; aux = aux->getNext()){
-        aux->print();
-
-        if(aux->getPrev() != NULL){
-            std::cout << "\t\tleft: " << *aux->getPrev();
-        }
-        else{
-            std::cout << "\t\t\t\t";
-        }
-
-        if(aux->getNext() != NULL){
-            std::cout << "\t\tright: " << *aux->getNext();
-        }
-        else{
-            std::cout << "\t\t\t\t";
-        }
-
-        std::cout << "\n";
-    }
-}
-
 void List::sort(Node* node){
     bool needShift = false;
     Node* aux = node;
 
-    if(aux->getNext() != NULL){
-        while (node->getFrequency() > aux->getNext()->getFrequency()){
+    if(aux->next != NULL){
+        while (node->frequency > aux->next->frequency){
             needShift = true;
             
-            aux = aux->getNext();
+            aux = aux->next;
 
-            if(aux->getNext() == NULL){
+            if(aux->next == NULL){
                 break;
             }
         }

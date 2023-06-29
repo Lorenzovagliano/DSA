@@ -7,10 +7,10 @@
 
 std::ostream& operator<< (std::ostream& stream, Node& node){
     std::stringstream ss;
-    ss << node.getFrequency();
+    ss << node.frequency;
 
     std::string text = "(";
-    text += node.getSymbol();
+    text += node.symbol;
     text += ",";
     text += ss.str();
     text += ")";
@@ -69,52 +69,24 @@ void Node::setSymbol(char symbol){
     this->symbol = symbol;
 }
 
-char Node::getSymbol(){
-    return this->symbol;
-}
-
 void Node::setFrequency(int frequency){
     this->frequency = frequency;
-}
-
-int Node::getFrequency(){
-    return this->frequency;
 }
 
 void Node::setLeft(Node* left){
     this->left = left;
 }
 
-Node* Node::getLeft(){
-    return this->left;
-}
-
 void Node::setRight(Node* right){
     this->right = right;
-}
-
-Node* Node::getRight(){
-    return this->right;
 }
 
 void Node::setPrev(Node* prev){
     this->prev = prev;
 }
 
-Node* Node::getPrev(){
-    return this->prev;
-}
-
 void Node::setNext(Node* next){
     this->next = next;
-}
-
-Node* Node::getNext(){
-    return this->next;
-}
-
-void Node::print(){
-    std::cout << *this;
 }
 
 bool Node::isLeaf(){
