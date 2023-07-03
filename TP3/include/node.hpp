@@ -8,17 +8,17 @@ class Node{
         // Attributes.
         char symbol;
         int frequency;
-        Node* prev;
-        Node* next;
-        Node* left;
-        Node* right;
+        Node* ant;
+        Node* prox;
+        Node* esq;
+        Node* dir;
 
         // Constructors.
         Node();
         Node(char symbol, int frequency);
-        Node(char symbol, int frequency, Node* prev, Node* next);
-        Node(int frequency, Node* left, Node* right);
-        Node(char symbol, int frequency, Node* prev, Node* next, Node* left, Node* right);
+        Node(char symbol, int frequency, Node* prev, Node* prox);
+        Node(int frequency, Node* esq, Node* dir);
+        Node(char symbol, int frequency, Node* prev, Node* prox, Node* esq, Node* dir);
 
         // Destructor.
         ~Node();
@@ -26,10 +26,10 @@ class Node{
         // Getters and Setters.
         void setSymbol(char symbol);
         void setFrequency(int frequency);
-        void setPrev(Node* prev);
-        void setNext(Node* next);
-        void setLeft(Node* left);
-        void setRight(Node* right);
+        void setAnt(Node* prev);
+        void setProx(Node* prox);
+        void setEsq(Node* esq);
+        void setDir(Node* dir);
 
         // Methods.
         bool isLeaf();

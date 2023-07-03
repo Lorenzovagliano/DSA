@@ -23,44 +23,44 @@ std::ostream& operator<< (std::ostream& stream, Node& node){
 Node::Node(){
     this->symbol = '\0';
     this->frequency = 0;
-    this->left = NULL;
-    this->right = NULL;
+    this->esq = NULL;
+    this->dir = NULL;
 }
 
 Node::Node(char symbol, int frequency){
     this->symbol = symbol;
     this->frequency = frequency;
-    this->prev = NULL;
-    this->next = NULL;
-    this->left = NULL;
-    this->right = NULL;
+    this->ant = NULL;
+    this->prox = NULL;
+    this->esq = NULL;
+    this->dir = NULL;
 }
 
-Node::Node(char symbol, int frequency, Node* prev, Node* next){
+Node::Node(char symbol, int frequency, Node* ant, Node* prox){
     this->symbol = symbol;
     this->frequency = frequency;
-    this->prev = prev;
-    this->next = next;
-    this->left = NULL;
-    this->right = NULL;
+    this->ant = ant;
+    this->prox = prox;
+    this->esq = NULL;
+    this->dir = NULL;
 }
 
-Node::Node(int frequency, Node* left, Node* right){
+Node::Node(int frequency, Node* esq, Node* dir){
     this->symbol = '\0';
     this->frequency = frequency;
-    this->prev = NULL;
-    this->next = NULL;
-    this->left = left;
-    this->right = right;
+    this->ant = NULL;
+    this->prox = NULL;
+    this->esq = esq;
+    this->dir = dir;
 }
 
-Node::Node(char symbol, int frequency, Node* prev, Node* next, Node* left, Node* right){
+Node::Node(char symbol, int frequency, Node* ant, Node* prox, Node* esq, Node* dir){
     this->symbol = symbol;
     this->frequency = frequency;
-    this->prev = prev;
-    this->next = next;
-    this->left = left;
-    this->right = right;
+    this->ant = ant;
+    this->prox = prox;
+    this->esq = esq;
+    this->dir = dir;
 }
 
 // Methods.
@@ -73,22 +73,22 @@ void Node::setFrequency(int frequency){
     this->frequency = frequency;
 }
 
-void Node::setLeft(Node* left){
-    this->left = left;
+void Node::setEsq(Node* esq){
+    this->esq = esq;
 }
 
-void Node::setRight(Node* right){
-    this->right = right;
+void Node::setDir(Node* dir){
+    this->dir = dir;
 }
 
-void Node::setPrev(Node* prev){
-    this->prev = prev;
+void Node::setAnt(Node* ant){
+    this->ant = ant;
 }
 
-void Node::setNext(Node* next){
-    this->next = next;
+void Node::setProx(Node* prox){
+    this->prox = prox;
 }
 
 bool Node::isLeaf(){
-    return this->left == NULL && this->right == NULL;
+    return this->esq == NULL && this->dir == NULL;
 }

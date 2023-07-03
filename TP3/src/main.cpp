@@ -8,10 +8,10 @@
 
 void erroUso(){
     std::cout << "\n\tERRO DE USO, utilize o formato de execução correto: ";
-    std::cout << "\n\n\t\tCompactação: ./Huff -c <nome do arquivo a ser compactado> <nome do arquivo de destino>";
-    std::cout << "\n\t\tDescompactação: ./Huff -d <nome do arquivo a ser descompactado> <nome do arquivo de destino>";
-    std::cout << "\n\n\t\tExemplo: ./Huff -c texto.txt compacto.z";
-    std::cout << "\n\t\tExemplo: ./Huff -c compacto.z descompacto.txt\n\n";
+    std::cout << "\n\n\t\tCompactação: ./Huffman -c <nome do arquivo a ser compactado> <nome do arquivo de destino>";
+    std::cout << "\n\t\tDescompactação: ./Huffman -d <nome do arquivo a ser descompactado> <nome do arquivo de destino>";
+    std::cout << "\n\n\t\tExemplo: ./Huffman -c texto.txt compacto.z";
+    std::cout << "\n\t\tExemplo: ./Huffman -d compacto.z descompactado.txt\n\n";
 }
 
 int main(int argc, char* argv[]){

@@ -152,7 +152,7 @@ Node* Huff::buildTrie(List *list){
 
     while(list->length > 1){
         Node* first = list->first;
-        Node* second = list->first->next;
+        Node* second = list->first->prox;
 
         int frequency = first->frequency + second->frequency;
 
@@ -192,8 +192,8 @@ void Huff::buildCode(string* codes, Node* node, string code){
         return;
     }
 
-    this->buildCode(codes, node->left, code + '0');
-    this->buildCode(codes, node->right, code + '1');
+    this->buildCode(codes, node->esq, code + '0');
+    this->buildCode(codes, node->dir, code + '1');
 }
 
 /**
@@ -261,8 +261,8 @@ string Huff::transform(Node* node, string output){
     }
 
     output += '0';
-    output = transform(node->left, output);
-    output = transform(node->right, output);
+    output = transform(node->esq, output);
+    output = transform(node->dir, output);
     return output;
 }
 
@@ -377,7 +377,7 @@ string Huff::bytesToBitflow(string bytes){
                 bits += '0';
             }
 
-            bytes[i] = bytes[i] << 1; // left shift
+            bytes[i] = bytes[i] << 1; // esq shift
         }
     }
 
@@ -401,11 +401,11 @@ string Huff::translate(string bitflow, int size, Node* root){
 
         while(!node->isLeaf()){
             if(bitflow[bit] == '1'){
-                node = node->right;
+                node = node->dir;
                 
             }
             else{
-                node = node->left;
+                node = node->esq;
             }
 
             ++bit;

@@ -31,8 +31,8 @@ void List::add(Node* node){
         this->length = 1;
     }
     else{
-        node->setNext(this->first);
-        this->first->setPrev(node);
+        node->setProx(this->first);
+        this->first->setAnt(node);
         this->first = node;
         this->length++;
         this->sort(node);
@@ -44,7 +44,7 @@ void List::remove(Node* node){
         return;
     }
 
-    for(Node* aux = this->first; aux != NULL; aux = aux->next){
+    for(Node* aux = this->first; aux != NULL; aux = aux->prox){
         if(node == aux){
             // Remove o único.
             if(this->length == 1){
@@ -57,8 +57,8 @@ void List::remove(Node* node){
 
             // Remove primeiro.
             if(node == this->first){
-                this->first = this->first->next;
-                this->first->setPrev(NULL);
+                this->first = this->first->prox;
+                this->first->setAnt(NULL);
                 node = NULL;
                 this->length--;
                 break;
@@ -66,16 +66,16 @@ void List::remove(Node* node){
 
             // Remove último.
             if(node == this->last){
-                this->last = this->last->prev;
-                this->last->setNext(NULL);
+                this->last = this->last->ant;
+                this->last->setProx(NULL);
                 node = NULL;
                 this->length--;
                 break;
             }
 
             // Remove no meio
-            node->prev->setNext(node->next);
-            node->next->setPrev(node->prev);
+            node->ant->setProx(node->prox);
+            node->prox->setAnt(node->ant);
             node = NULL;
             this->length--;
             break;
@@ -88,7 +88,7 @@ bool List::isEmpty(){
 }
 
 Node* List::getNode(char symbol){
-    for(Node* aux = this->first; aux != NULL; aux = aux->next){
+    for(Node* aux = this->first; aux != NULL; aux = aux->prox){
         if(aux->symbol == symbol){
             
             return aux;
@@ -112,56 +112,56 @@ void List::shift(Node* node, Node* other){
         this->last = node;
     }
 
-    if(other->prev != NULL){
-        beforeOther = other->prev;
+    if(other->ant != NULL){
+        beforeOther = other->ant;
     }
 
-    if(other->next != NULL){
-        afterOther = other->next;
+    if(other->prox != NULL){
+        afterOther = other->prox;
     }
 
-    if(node->prev != NULL){
-        beforeNode = node->prev;
+    if(node->ant != NULL){
+        beforeNode = node->ant;
     }
 
-    if(node->next != NULL){
-        afterNode = node->next;
+    if(node->prox != NULL){
+        afterNode = node->prox;
     }
 
-    node->setNext(NULL);
-    node->setPrev(NULL);
-    other->setNext(NULL);
-    other->setPrev(NULL);
+    node->setProx(NULL);
+    node->setAnt(NULL);
+    other->setProx(NULL);
+    other->setAnt(NULL);
 
     if(beforeOther != NULL){
         if(beforeOther != node){
-            node->setPrev(beforeOther);
-            beforeOther->setNext(node);
+            node->setAnt(beforeOther);
+            beforeOther->setProx(node);
         }
         else{
-            node->setPrev(other);
-            other->setNext(node);
+            node->setAnt(other);
+            other->setProx(node);
         }
     }
 
     if(afterOther != NULL){
-        node->setNext(afterOther);
-        afterOther->setPrev(node);
+        node->setProx(afterOther);
+        afterOther->setAnt(node);
     }
     
     if(beforeNode != NULL){
-        other->setPrev(beforeNode);
-        beforeNode->setNext(other);
+        other->setAnt(beforeNode);
+        beforeNode->setProx(other);
     }
 
     if(afterNode != NULL){
         if(afterNode != other){
-            other->setNext(afterNode);
-            afterNode->setPrev(other);
+            other->setProx(afterNode);
+            afterNode->setAnt(other);
         }
         else{
-            other->setNext(node);
-            node->setPrev(other);
+            other->setProx(node);
+            node->setAnt(other);
         }
     }
 }
@@ -170,13 +170,13 @@ void List::sort(Node* node){
     bool needShift = false;
     Node* aux = node;
 
-    if(aux->next != NULL){
-        while (node->frequency > aux->next->frequency){
+    if(aux->prox != NULL){
+        while (node->frequency > aux->prox->frequency){
             needShift = true;
             
-            aux = aux->next;
+            aux = aux->prox;
 
-            if(aux->next == NULL){
+            if(aux->prox == NULL){
                 break;
             }
         }
