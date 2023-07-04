@@ -11,6 +11,7 @@
 
 using namespace std;
 
+// Classe que agrega as funções referentes ao algoritmo de Huffman
 class Huffman{
     public:
         Huffman();
@@ -21,7 +22,7 @@ class Huffman{
         private:
             List* list;
 
-            //Compressao
+            // Compressao
             string ler(string filename);
             List* criarLista(string text);
             Node* criarArvore(List* list);
@@ -31,7 +32,7 @@ class Huffman{
             void write(string text, string filename);
             void write(string trie, int size, string bitflow, string filename);
 
-            //Descompressao
+            // Descompressao
             Node* lerArvore(string* text);
             Node* lerArvore(string text, int* index);
             int lerTamanho(string* text);

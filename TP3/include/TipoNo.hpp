@@ -6,6 +6,8 @@
 #include <string>
 #include <sstream>
 
+
+// Classe que implementa o No para a Lista Encadeada e para a Arvore de Huffman
 class Node{
     public:
         char symbol;

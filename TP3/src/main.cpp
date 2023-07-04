@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string.h>
-#include <chrono>
 
 #include "TipoNo.hpp"
 #include "ListaDinamica.hpp"
@@ -16,9 +15,6 @@ void erroUso(){
 }
 
 int main(int argc, char* argv[]){
-    long double tempo;
-    auto start = std::chrono::high_resolution_clock::now();
-
     if(argc == 1){
         erroUso();
         return 0;
@@ -32,6 +28,8 @@ int main(int argc, char* argv[]){
                 string filename = (string)argv[i + 1];
                 string outputFilename = (string)argv[i + 2];
                 huff->comprimir(filename, outputFilename);
+
+                std::cout << "Arquivo comprimido\n";
             }
             else{
                 erroUso();
@@ -42,15 +40,12 @@ int main(int argc, char* argv[]){
                 string filename = (string)argv[i + 1];
                 string outputFilename = (string)argv[i + 2];
                 huff->descomprimir(filename, outputFilename);
+
+                std::cout << "Arquivo descomprimido\n";
             }
             else{
                 erroUso();
             }
         }
     }
-
-    auto end = std::chrono::high_resolution_clock::now();
-    tempo = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-
-    std::cout << tempo << std::endl;
 }

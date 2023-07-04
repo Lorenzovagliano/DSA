@@ -5,6 +5,7 @@
 
 #include "TipoNo.hpp"
 
+// Classe que implementa uma Lista Encadeada que serve como Fila de Prioridade
 class List{
     public:
         Node* inicio;
