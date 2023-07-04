@@ -285,20 +285,6 @@ string Huffman::criarBytes(string bits){
 }
 
 /**
-* Lê uma árvore Huffman a partir de uma string.
-*
-* @param text A string contendo a representação da árvore Huffman.
-* @return O ponteiro para o nó raiz da árvore lida.
-*/
-Node* Huffman::lerArvore(string* text){
-    int index = -1;
-    Node* node = this->lerArvore(*text, &index);
-    index++;
-    (*text).replace(0, index, "");
-    return node;
-}
-
-/**
 * Lê uma árvore Huffman a partir de uma string e um índice de leitura.
 *
 * @param text A string contendo a representação da árvore Huffman.
@@ -319,6 +305,20 @@ Node* Huffman::lerArvore(string text, int* index){
 
     // Se o caractere atual não for '1', indica que é um nó intermediário
     return new Node('\0', 0, NULL, NULL, lerArvore(text, index), lerArvore(text, index));
+}
+
+/**
+* Lê uma árvore Huffman a partir de uma string.
+*
+* @param text A string contendo a representação da árvore Huffman.
+* @return O ponteiro para o nó raiz da árvore lida.
+*/
+Node* Huffman::lerArvore(string* text){
+    int index = -1;
+    Node* node = this->lerArvore(*text, &index);
+    index++;
+    (*text).replace(0, index, "");
+    return node;
 }
 
 /**
