@@ -2,9 +2,9 @@
 #include <fstream>
 #include <string.h>
 
-#include "node.hpp"
-#include "list.hpp"
-#include "huff.hpp"
+#include "TipoNo.hpp"
+#include "ListaDinamica.hpp"
+#include "Huffman.hpp"
 
 void erroUso(){
     std::cout << "\n\tERRO DE USO, utilize o formato de execução correto: ";
@@ -21,13 +21,13 @@ int main(int argc, char* argv[]){
     }
 
     for(int i = 0; i < argc; i++){
-        Huff* huff = new Huff();
+        Huffman* huff = new Huffman();
 
         if(strcmp(argv[i], "-c") == 0){
             if((i + 1) < argc){
                 string filename = (string)argv[i + 1];
                 string outputFilename = (string)argv[i + 2];
-                huff->compress(filename, outputFilename);
+                huff->comprimir(filename, outputFilename);
             }
             else{
                 erroUso();
@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
             if((i + 1) < argc){
                 string filename = (string)argv[i + 1];
                 string outputFilename = (string)argv[i + 2];
-                huff->expand(filename, outputFilename);
+                huff->descomprimir(filename, outputFilename);
             }
             else{
                 erroUso();

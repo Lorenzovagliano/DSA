@@ -8,19 +8,19 @@ INCLUDE_DIR = ./include
 
 all: ${TARGET}
 
-${TARGET}: ${OBJ_DIR}/node.o ${OBJ_DIR}/list.o ${OBJ_DIR}/huff.o ${OBJ_DIR}/main.o
+${TARGET}: ${OBJ_DIR}/TipoNo.o ${OBJ_DIR}/ListaDinamica.o ${OBJ_DIR}/Huffman.o ${OBJ_DIR}/main.o
 	${CC} ${OBJ_DIR}/*.o -o ${TARGET} ${CFLAGS}
 
-${OBJ_DIR}/node.o: ${INCLUDE_DIR}/node.hpp ${SRC_DIR}/node.cpp
-	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/node.cpp -o ${OBJ_DIR}/node.o ${CFLAGS}
+${OBJ_DIR}/TipoNo.o: ${INCLUDE_DIR}/TipoNo.hpp ${SRC_DIR}/TipoNo.cpp
+	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/TipoNo.cpp -o ${OBJ_DIR}/TipoNo.o ${CFLAGS}
 
-${OBJ_DIR}/list.o: ${INCLUDE_DIR}/node.hpp ${INCLUDE_DIR}/list.hpp ${SRC_DIR}/list.cpp
-	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/list.cpp -o ${OBJ_DIR}/list.o ${CFLAGS}
+${OBJ_DIR}/ListaDinamica.o: ${INCLUDE_DIR}/TipoNo.hpp ${INCLUDE_DIR}/ListaDinamica.hpp ${SRC_DIR}/ListaDinamica.cpp
+	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/ListaDinamica.cpp -o ${OBJ_DIR}/ListaDinamica.o ${CFLAGS}
 
-${OBJ_DIR}/huff.o: ${INCLUDE_DIR}/list.hpp ${INCLUDE_DIR}/huff.hpp ${SRC_DIR}/huff.cpp
-	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/huff.cpp -o ${OBJ_DIR}/huff.o ${CFLAGS}
+${OBJ_DIR}/Huffman.o: ${INCLUDE_DIR}/ListaDinamica.hpp ${INCLUDE_DIR}/Huffman.hpp ${SRC_DIR}/Huffman.cpp
+	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Huffman.cpp -o ${OBJ_DIR}/Huffman.o ${CFLAGS}
 
-${OBJ_DIR}/main.o: ${INCLUDE_DIR}/node.hpp ${INCLUDE_DIR}/list.hpp ${INCLUDE_DIR}/huff.hpp ${SRC_DIR}/main.cpp
+${OBJ_DIR}/main.o: ${INCLUDE_DIR}/TipoNo.hpp ${INCLUDE_DIR}/ListaDinamica.hpp ${INCLUDE_DIR}/Huffman.hpp ${SRC_DIR}/main.cpp
 	${CC} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/main.cpp -o ${OBJ_DIR}/main.o ${CFLAGS}
 	
 run: all
